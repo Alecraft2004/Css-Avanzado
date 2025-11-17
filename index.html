@@ -1,11 +1,4 @@
-<!--
-  NeoMarket — Landing tipo marketplace
-  Estructura base: HTML + Bootstrap 5 (CDN) + estilos propios.
-  Objetivo: interfaz elegante, llamativa y accesible similar a un marketplace.
-  Secciones: Topbar, Navbar con buscador, Hero (carrusel), Más vendidos,
-             Promos y Categorías, Footer.
-  Nota: Solo se agregan comentarios; no se altera el comportamiento.
--->
+
 <!doctype html>
 <html lang="es" data-bs-theme="light">
 <head>
@@ -15,15 +8,16 @@
   <meta name="color-scheme" content="light dark">
   <meta name="description" content="Tienda elegante tipo marketplace con Bootstrap, animaciones y compatibilidad multi-navegador.">
 
-  <title>NeoMarket — Tu mercado elegante</title>
+  <title>NeoMarket </title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
   <!-- Bootstrap 5: estilos y utilidades responsivas -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  
   <!-- Bootstrap Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-  
   <link rel="stylesheet" href="css/styles.css">
   <link rel="icon" href="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f6d2.svg">
   
@@ -33,6 +27,9 @@
   <meta property="og:image" content="https://images.unsplash.com/photo-1515165562835-c3b8c5b69a2d?q=80&w=1200&auto=format&fit=crop">
   <meta property="og:locale" content="es_PE">
 </head>
+
+
+
 <body>
   <!-- TOPBAR: barra superior con mensaje -->
   <div class="topbar text-center small py-1">Envíos gratis en compras desde S/ 99 • Cambios fáciles</div>
@@ -44,12 +41,13 @@
         <span class="brand-badge">NM</span>
         <span class="fw-bold">NeoMarket</span>
       </a>
-
+      <!-- Boton hamburguesa que abre y cierra  -->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
       <div class="collapse navbar-collapse" id="mainNav">
+
         <!-- CATEGORÍAS (dropdown) -->
         <ul class="navbar-nav me-3 mt-2 mt-lg-0">
           <li class="nav-item dropdown">
@@ -75,7 +73,11 @@
           <li class="nav-item"><a class="nav-link" href="#">Ofertas</a></li>
           <li class="nav-item"><a class="nav-link" href="#">Vender</a></li>
           <li class="nav-item"><a class="nav-link" href="#">Ayuda</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Ingresa </a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Registrar</a></li>
           <li class="nav-item">
+
+            <!-- El carrito -->
             <a class="nav-link position-relative" href="#" aria-label="Carrito">
               <i class="bi bi-cart3 fs-5"></i>
               <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">3</span>
@@ -86,7 +88,7 @@
     </div>
   </nav>
 
-  <!-- HERO: carrusel principal con banners y botón -->
+  <!-- Carrusel principal con banners y botón -->
   <header class="hero">
     <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" aria-label="Promociones destacadas">
       <div class="carousel-inner">
@@ -95,11 +97,11 @@
             <div class="hero-copy reveal">
               <h1 class="display-5 fw-bold">Descubre tu próximo gadget</h1>
               <p class="lead opacity-75">Tecnología premium con envíos ultrarrápidos y precios irresistibles.</p>
-              <a class="btn btn-lg btn-primary rounded-pill px-4" href="#mas-vendidos">Compra ahora</a>
+              <a class="btn btn-lg btn-outline-light rounded-pill px-4" href="#mas-vendidos">Compra ahora</a>
             </div>
           </div>
         </div>
-        <div class="carousel-item" style="--bg:url('https://images.unsplash.com/photo-1551567771-9f5e4c8d2a04?q=80&w=1600&auto=format&fit=crop');">
+        <div class="carousel-item" style="--bg:url('https://images.unsplash.com/photo-1598024055266-e772a5f8c128?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
           <div class="container-xl h-100 d-flex align-items-center">
             <div class="hero-copy reveal">
               <h2 class="display-6 fw-semibold">Lecturas que inspiran</h2>
@@ -113,15 +115,17 @@
             <div class="hero-copy reveal">
               <h2 class="display-6 fw-semibold">Energía para tu entrenamiento</h2>
               <p class="lead opacity-75">Suplementos confiables con envío gratis desde S/ 99.</p>
-              <a class="btn btn-lg btn-primary rounded-pill px-4" href="#cat-sup">Ver suplementos</a>
+              <a class="btn btn-lg btn-outline-light rounded-pill px-4" href="#cat-sup">Ver suplementos</a>
             </div>
           </div>
         </div>
       </div>
+       <!-- botón para retroceder en el carrucel -->
       <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Anterior</span>
       </button>
+      <!-- botón para avanzar en el carrucel -->
       <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Siguiente</span>
@@ -144,7 +148,7 @@
               <!-- SLIDE 1: 4 productos -->
               <div class="col-12 col-sm-6 col-lg-3">
                 <article class="card product reveal h-100">
-                  <img class="card-img-top" alt="Mouse inalámbrico" src="https://images.unsplash.com/photo-1587825140400-7c2433f0f0a9?q=80&w=900&auto=format&fit=crop">
+                  <img class="card-img-top" alt="Mouse inalámbrico" src="https://images.unsplash.com/photo-1752442534054-ef5b221c39a3?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
                   <div class="card-body">
                     <h6 class="card-title">Mouse inalámbrico Master</h6>
                     <p class="price m-0">S/ 386.90</p>
@@ -154,7 +158,7 @@
               </div>
               <div class="col-12 col-sm-6 col-lg-3">
                 <article class="card product reveal h-100">
-                  <img class="card-img-top" alt="Mouse gamer" src="https://images.unsplash.com/photo-1587202372775-98927b9252d1?q=80&w=900&auto=format&fit=crop">
+                  <img class="card-img-top" alt="Mouse gamer" src="https://gamecenterperu.com/wp-content/uploads/2023/11/GC01494.jpg">
                   <div class="card-body">
                     <h6 class="card-title">Mouse Gamer G502 Hero</h6>
                     <p class="price m-0">S/ 190.00</p>
@@ -164,7 +168,7 @@
               </div>
               <div class="col-12 col-sm-6 col-lg-3">
                 <article class="card product reveal h-100">
-                  <img class="card-img-top" alt="Mouse pad" src="https://images.unsplash.com/photo-1593640408182-31c70c8268f5?q=80&w=900&auto=format&fit=crop">
+                  <img class="card-img-top" alt="Mouse pad" src="https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQkoWNQqc3GDLN3dipj7N_QxN9s96_xC4to2VrzqKd8oVIhIeS6A91t2nufuyvSmCVo8z6j0_95Gbd1yReZJQWQ_Z6I-MGJr4-kjpz4ruU_7q6vIvFDLzQ0jGB8ojxjKogtFZDUuw&usqp=CAc">
                   <div class="card-body">
                     <h6 class="card-title">Mouse Pad XL</h6>
                     <p class="price m-0">S/ 59.50</p>
@@ -174,7 +178,7 @@
               </div>
               <div class="col-12 col-sm-6 col-lg-3">
                 <article class="card product reveal h-100">
-                  <img class="card-img-top" alt="Mouse rgb" src="https://images.unsplash.com/photo-1563298723-dcfebaa392e3?q=80&w=900&auto=format&fit=crop">
+                  <img class="card-img-top" alt="Mouse rgb" src="https://promart.vteximg.com.br/arquivos/ids/2949830-1000-1000/image-6f1adf96f7a04e46ae24d687032492da.jpg?v=637726043919030000">
                   <div class="card-body">
                     <h6 class="card-title">Mouse RGB G203</h6>
                     <p class="price m-0">S/ 79.90</p>
@@ -190,7 +194,7 @@
               <!-- SLIDE 2: 4 productos -->
               <div class="col-12 col-sm-6 col-lg-3">
                 <article class="card product reveal h-100">
-                  <img class="card-img-top" alt="Case protector" src="https://images.unsplash.com/photo-1616348436168-de43ad0db179?q=80&w=900&auto=format&fit=crop">
+                  <img class="card-img-top" alt="Case protector" src="https://coolboxpe.vtexassets.com/arquivos/ids/400710-800-800?v=638670454373130000&width=800&height=800&aspect=true">
                   <div class="card-body">
                     <h6 class="card-title">Case protector antigolpes</h6>
                     <p class="price m-0">S/ 67.57</p>
@@ -200,17 +204,17 @@
               </div>
               <div class="col-12 col-sm-6 col-lg-3">
                 <article class="card product reveal h-100">
-                  <img class="card-img-top" alt="iPhone" src="https://images.unsplash.com/photo-1603899122634-25384f78d244?q=80&w=900&auto=format&fit=crop">
+                  <img class="card-img-top" alt="iPhone" src="https://promart.vteximg.com.br/arquivos/ids/9297001-380-380/Image-2.jpg?v=638929506980870000">
                   <div class="card-body">
-                    <h6 class="card-title">Smartphone 128GB</h6>
-                    <p class="price m-0">S/ 1,399.00</p>
+                    <h6 class="card-title">IPhone 13 128GB</h6>
+                    <p class="price m-0">S/ 1,629.00</p>
                     <button class="btn btn-sm btn-primary w-100 mt-2">Agregar al carrito</button>
                   </div>
                 </article>
               </div>
               <div class="col-12 col-sm-6 col-lg-3">
                 <article class="card product reveal h-100">
-                  <img class="card-img-top" alt="Creatina" src="https://images.unsplash.com/photo-1643660572834-3f363df2380f?q=80&w=900&auto=format&fit=crop">
+                  <img class="card-img-top" alt="Creatina" src="https://media.falabella.com/falabellaPE/135594762_01/w=800,h=800,fit=pad">
                   <div class="card-body">
                     <h6 class="card-title">Creatina Monohidratada 1Kg</h6>
                     <p class="price m-0">S/ 200.00</p>
@@ -220,9 +224,9 @@
               </div>
               <div class="col-12 col-sm-6 col-lg-3">
                 <article class="card product reveal h-100">
-                  <img class="card-img-top" alt="Libro" src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=900&auto=format&fit=crop">
+                  <img class="card-img-top" alt="Libro" src="https://www.crisol.com.pe/media/catalog/product/cache/85cf14d8514889c3aec4590f746b60f9/9/7/9786075278377_sngprksytcjcieck.jpg">
                   <div class="card-body">
-                    <h6 class="card-title">Novela destacada</h6>
+                    <h6 class="card-title">Libro - las 48 leyes del poder</h6>
                     <p class="price m-0">S/ 39.00</p>
                     <button class="btn btn-sm btn-primary w-100 mt-2">Agregar al carrito</button>
                   </div>
@@ -231,10 +235,12 @@
             </div>
           </div>
         </div>
+        <!-- botón para retroceder en el carrucel -->
         <button class="carousel-control-prev" type="button" data-bs-target="#bestSellerCarousel" data-bs-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Anterior</span>
         </button>
+        <!-- botón para avanzar en el carrucel -->
         <button class="carousel-control-next" type="button" data-bs-target="#bestSellerCarousel" data-bs-slide="next">
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Siguiente</span>
@@ -243,7 +249,7 @@
     </div>
   </section>
 
-  <!-- PROMOS: tarjetas grandes con imagen + CATEGORÍAS: lista horizontal -->
+    <!-- PROMOS: tarjetas grandes con imagen + CATEGORÍAS: lista horizontal -->
   <section class="py-5">
     <div class="container-xl">
       <div class="row g-3 mb-4">
@@ -279,13 +285,14 @@
         </div>
       </div>
 
+      <!-- Categorias  -->
       <div class="d-flex align-items-center justify-content-between mb-2">
         <h3 class="section-title m-0">Categorías</h3>
         <a class="link-primary" href="#">Ver todas</a>
       </div>
       <div class="category-row" role="list" aria-label="Listado de categorías">
         <a class="category-tile reveal" id="cat-gaming" role="listitem" href="#cat-gaming">
-          <img alt="Gaming" src="https://images.unsplash.com/photo-1585079542156-2755d9c8affd?q=80&w=300&auto=format&fit=crop">
+          <img alt="Gaming" src="https://images.unsplash.com/photo-1674043665487-da84e9892a4e?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
           <span>Gaming</span>
         </a>
         <a class="category-tile reveal" id="cat-tech" role="listitem" href="#cat-tech">
@@ -293,7 +300,7 @@
           <span>Tecnología</span>
         </a>
         <a class="category-tile reveal" id="cat-sup" role="listitem" href="#cat-sup">
-          <img alt="Suplementos" src="https://images.unsplash.com/photo-1589471868745-2f12d93d0056?q=80&w=300&auto=format&fit=crop">
+          <img alt="Suplementos" src="https://images.unsplash.com/photo-1594134888586-2d27f0e4bcaa?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
           <span>Suplementos</span>
         </a>
         <a class="category-tile reveal" id="cat-libros" role="listitem" href="#cat-libros">

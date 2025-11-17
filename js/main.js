@@ -1,10 +1,4 @@
 
-/**
- * NeoMarket interactions
- * - Inserta el año actual en el footer.
- * - Revela elementos con la clase `.reveal` al entrar en el viewport
- *   usando IntersectionObserver (con fallback simple para navegadores antiguos).
- */
 (function(){
   // año en el footer
   const yearEl = document.getElementById('year');
