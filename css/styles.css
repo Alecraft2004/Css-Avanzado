@@ -1,0 +1,118 @@
+
+
+/*
+  NeoMarket — Hoja de estilos principal
+  - Filosofía: limpio, elegante y llamativo con micro‑interacciones
+  - Estructura: variables (root) -> layout básicos -> componentes (hero, cards,
+                promos, categorías) -> animaciones -> utilidades -> accesibilidad
+  - Compatibilidad: se incluyen transiciones/transformaciones con prefijos -webkit
+                    donde aporta valor; se respeta prefers-reduced-motion.
+*/
+
+:root{
+  --brand: #4f46e5;           /* Indigo */
+  --brand-2: #22d3ee;         /* Cyan */
+  --brand-amber: #fbbf24;     /* Detalle cálido */
+  --bg-soft: #f6f7fb;
+  --radius-lg: 16px;
+}
+
+*{box-sizing:border-box}
+html,body{scroll-behavior:smooth}
+body{
+  /* Resets y tipografía base */
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  background-color: #fff;
+}
+
+.topbar{
+  background: linear-gradient(90deg, var(--brand), var(--brand-2));
+  color:#fff;
+}
+
+.brand-badge{
+  display:inline-grid;place-items:center;width:32px;height:32px;border-radius:50%;
+  background:linear-gradient(135deg,var(--brand),var(--brand-2));
+  color:#fff;font-weight:800;letter-spacing:.5px;
+}
+
+/* Buscador */
+.search-input{ box-shadow: 0 0 0 2px rgba(79,70,229,.08) inset; }
+.search-input:focus{ box-shadow: 0 0 0 3px rgba(79,70,229,.2) inset; }
+
+/* HERO: portada con carrusel */
+/* Hero */
+.hero{ height:min(68vh, 520px); }
+.hero .carousel-item{ height:min(68vh, 520px); background-position:center; background-size:cover; position:relative; }
+.hero .carousel-item::before{
+  content:""; position:absolute; inset:0; 
+  background-image:linear-gradient(90deg, rgba(3,7,18,.75), rgba(3,7,18,.35), rgba(3,7,18,.1));
+}
+.hero .carousel-item{ background-image: var(--bg); }
+.hero-copy{ color:#fff; max-width:640px; animation: fadeUp .9s both; }
+.hero .btn{ box-shadow: 0 10px 24px rgba(34,211,238,.35); }
+
+/* Section title */
+.section-title{ font-weight:700; letter-spacing:.2px; }
+
+/* CARTAS: productos */
+/* Product cards */
+.card.product{ border:0; border-radius: var(--radius-lg); overflow:hidden; background:#fff; 
+  box-shadow: 0 2px 16px rgba(2,6,23,.06);
+  transition: transform .25s ease, box-shadow .25s ease; -webkit-transition: transform .25s ease, box-shadow .25s ease;
+}
+.card.product:hover{
+  transform: translateY(-6px); -webkit-transform: translateY(-6px);
+  box-shadow: 0 12px 28px rgba(2,6,23,.12);
+}
+.card.product .card-img-top{ aspect-ratio: 4/3; object-fit: cover; transition: transform .5s ease; -webkit-transition: -webkit-transform .5s ease; }
+.card.product:hover .card-img-top{ transform: scale(1.04); -webkit-transform: scale(1.04); }
+.card.product .price{ font-weight:700; font-size:1.05rem; }
+
+/* PROMOS */
+/* Promo banners */
+.promo-card{
+  display:block; position:relative; min-height:220px; border-radius: var(--radius-lg); overflow:hidden; color:#fff; 
+  background: #111; text-decoration:none; padding:24px; isolation:isolate;
+}
+.promo-card::before{
+  content:""; position:absolute; inset:0; background-image: var(--img); background-size:cover; background-position:center; z-index:-2; 
+  filter:saturate(1.1) contrast(1.05) brightness(.85);
+}
+.promo-card::after{
+  content:""; position:absolute; inset:0; z-index:-1;
+  background: linear-gradient(135deg, rgba(2,6,23,.65), rgba(2,6,23,.25));
+  backdrop-filter: blur(0.5px); -webkit-backdrop-filter: blur(0.5px);
+}
+.promo-card:hover{ transform: translateY(-4px); -webkit-transform: translateY(-4px); box-shadow: 0 10px 28px rgba(0,0,0,.18); }
+.promo-card small{ letter-spacing:.22em; opacity:.9 }
+
+/* CATEGORÍAS */
+/* Categories row */
+.category-row{ display:flex; gap:16px; overflow:auto; padding:4px; scroll-snap-type:x mandatory; }
+.category-row::-webkit-scrollbar{ height:10px }
+.category-row::-webkit-scrollbar-thumb{ background:linear-gradient(90deg,var(--brand),var(--brand-2)); border-radius:999px }
+.category-tile{ flex:0 0 260px; display:flex; align-items:center; gap:16px; padding:12px; border-radius: var(--radius-lg); background:#fff; 
+  box-shadow: 0 2px 16px rgba(2,6,23,.06); text-decoration:none; color:inherit; scroll-snap-align:start; transition: transform .2s ease;
+}
+.category-tile:hover{ transform: translateY(-4px); -webkit-transform: translateY(-4px); }
+.category-tile img{ width:72px; height:72px; border-radius:12px; object-fit:cover }
+.category-tile span{ font-weight:600 }
+
+/* REVEAL: mostrar al hacer scroll */
+/* Reveal on scroll */
+.reveal{ opacity:0; transform: translateY(12px); -webkit-transform: translateY(12px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.is-visible{ opacity:1; transform: none; -webkit-transform: none; }
+
+/* ANIMACIONES */
+/* Animations */
+@-webkit-keyframes fadeUp{ from{ opacity:0; -webkit-transform: translateY(10px)} to{ opacity:1; -webkit-transform: none } }
+@keyframes fadeUp{ from{ opacity:0; transform: translateY(10px)} to{ opacity:1; transform: none } }
+
+/* Utilities */
+.bg-light-subtle{ background: var(--bg-soft); }
+
+/* Prefer reduced motion */
+@media (prefers-reduced-motion: reduce){
+  *{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; scroll-behavior:auto !important }
+}
