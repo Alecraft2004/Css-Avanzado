@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import OffersPage from './pages/OffersPage';
 import SearchPage from './pages/SearchPage';
+import CartPage from './pages/CartPage';
 import GamingPage from './pages/GamingPage';
 import TecnologiaPage from './pages/TecnologiaPage';
 import SupermercadoPage from './pages/SupermercadoPage';
@@ -18,6 +19,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/buscar" element={<SearchPage />} />
         <Route path="/ofertas" element={<OffersPage />} />
+        <Route path="/carrito" element={<CartPage />} />
         <Route path="/categoria/gaming" element={<GamingPage />} />
         <Route path="/categoria/tecnologia" element={<TecnologiaPage />} />
         <Route path="/categoria/supermercado" element={<SupermercadoPage />} />

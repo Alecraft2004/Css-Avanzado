@@ -42,7 +42,15 @@ body {
    ========================================== */
 .navbar {
   transition: var(--transition);
-  z-index: 1000;
+  z-index: 1030;
+  position: sticky !important;
+  top: 0;
+  background: #fff !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.navbar.scrolled {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .brand-badge {
@@ -395,6 +403,7 @@ body {
   overflow: hidden;
   text-decoration: none;
   transition: var(--transition);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .promo-card::before {
@@ -406,12 +415,12 @@ body {
 }
 
 .promo-card:hover::before {
-  background: linear-gradient(135deg, rgba(90, 103, 216, 0.7), rgba(67, 65, 144, 0.5));
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4));
 }
 
 .promo-card:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-lg);
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
 }
 
 .promo-content {

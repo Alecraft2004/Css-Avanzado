@@ -6,6 +6,7 @@ const BestSellers = () => {
 
   const products = [
     {
+      id: 'bs1',
       image: 'https://images.unsplash.com/photo-1593640495253-23196b27a87f?q=80&w=400&auto=format&fit=crop',
       title: 'Auriculares Pro X',
       price: '349',
@@ -13,24 +14,28 @@ const BestSellers = () => {
       badge: 'OFERTA'
     },
     {
+      id: 'bs2',
       image: 'https://images.unsplash.com/photo-1546868871-7041f2a55e12?q=80&w=400&auto=format&fit=crop',
       title: 'Smartwatch Series 8',
       price: '1299',
       discount: '1499'
     },
     {
+      id: 'bs3',
       image: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?q=80&w=400&auto=format&fit=crop',
       title: 'Gafas de Sol UV',
       price: '159',
       badge: 'NUEVO'
     },
     {
+      id: 'bs4',
       image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=400&auto=format&fit=crop',
       title: 'Parlante Bluetooth',
       price: '249',
       discount: '320'
     },
     {
+      id: 'bs5',
       image: 'https://images.unsplash.com/photo-1598024055266-e772a5f8c128?q=80&w=400&auto=format&fit=crop',
       title: 'Smartwatch Band Plus',
       price: '899',
@@ -38,17 +43,20 @@ const BestSellers = () => {
       badge: '10% OFF'
     },
     {
+      id: 'bs6',
       image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=400&auto=format&fit=crop',
       title: 'Reloj Clásico',
       price: '499'
     },
     {
+      id: 'bs7',
       image: 'https://images.unsplash.com/photo-1585386959984-a4155224a1ad?q=80&w=400&auto=format&fit=crop',
       title: 'Perfume Elegance',
       price: '279',
       badge: 'DESTACADO'
     },
     {
+      id: 'bs8',
       image: 'https://images.unsplash.com/photo-1484704849700-f032a568e944?q=80&w=400&auto=format&fit=crop',
       title: 'Mouse Gamer RGB',
       price: '119',

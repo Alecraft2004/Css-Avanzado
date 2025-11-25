@@ -1,5 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
+import { useCart } from '../context/CartContext';
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -7,6 +8,7 @@ const Navbar = () => {
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const searchRef = useRef(null);
+  const { getCartCount } = useCart();
 
   // Base de datos de productos para sugerencias
   const allProducts = [
@@ -167,10 +169,14 @@ const Navbar = () => {
             <li className="nav-item"><Link className="nav-link" to="/login">Ingresa</Link></li>
             <li className="nav-item"><Link className="nav-link" to="/register">Registrar</Link></li>
             <li className="nav-item">
-              <a className="nav-link position-relative" href="#" aria-label="Carrito de compras">
+              <Link className="nav-link position-relative" to="/carrito" aria-label="Carrito de compras">
                 <i className="bi bi-cart3 fs-5"></i>
-                <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
-              </a>
+                {getCartCount() > 0 && (
+                  <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    {getCartCount()}
+                  </span>
+                )}
+              </Link>
             </li>
           </ul>
         </div>

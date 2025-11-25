@@ -1,4 +1,16 @@
-const ProductCard = ({ image, title, price, discount, badge }) => {
+import { useCart } from '../context/CartContext';
+import { useState } from 'react';
+
+const ProductCard = ({ id, image, title, price, discount, badge }) => {
+  const { addToCart } = useCart();
+  const [added, setAdded] = useState(false);
+
+  const handleAddToCart = () => {
+    addToCart({ id, image, title, price, discount, badge });
+    setAdded(true);
+    setTimeout(() => setAdded(false), 2000);
+  };
+
   return (
     <div className="card product h-100 border-0 shadow-sm">
       <img src={image} className="card-img-top" alt={title} loading="lazy" />
@@ -9,7 +21,23 @@ const ProductCard = ({ image, title, price, discount, badge }) => {
         </div>
         {discount && <p className="text-muted text-decoration-line-through small mb-1">S/ {discount}</p>}
         <p className="fs-4 fw-bold text-primary mb-3">S/ {price}</p>
-        <button className="btn btn-outline-primary rounded-pill mt-auto">Agregar al carrito</button>
+        <button 
+          className={`btn ${added ? 'btn-success' : 'btn-outline-primary'} rounded-pill mt-auto`}
+          onClick={handleAddToCart}
+          disabled={added}
+        >
+          {added ? (
+            <>
+              <i className="bi bi-check-circle me-2"></i>
+              Agregado
+            </>
+          ) : (
+            <>
+              <i className="bi bi-cart-plus me-2"></i>
+              Agregar al carrito
+            </>
+          )}
+        </button>
       </div>
     </div>
   );
