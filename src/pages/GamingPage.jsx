@@ -1,5 +1,12 @@
 import CategoryPage from './CategoryPage';
 
+/**
+ * Página de Gaming
+ * ----------------
+ * Configura los datos específicos para la categoría de videojuegos.
+ * Define la lista de productos y sus subcategorías (Consolas, PC, etc.)
+ * y utiliza el componente genérico CategoryPage para mostrarlos.
+ */
 const GamingPage = () => {
   const category = {
     name: 'Gaming',
@@ -15,7 +22,8 @@ const GamingPage = () => {
       title: 'Silla Gaming Ergonómica',
       price: '599.90',
       discount: '799.90',
-      badge: 'NUEVO'
+      badge: 'NUEVO',
+      subcategory: 'Sillas'
     },
     {
       id: 2,
@@ -23,7 +31,8 @@ const GamingPage = () => {
       title: 'PC Gaming RTX 4070',
       price: '4999.90',
       discount: null,
-      badge: 'DESTACADO'
+      badge: 'DESTACADO',
+      subcategory: 'PC Gaming'
     },
     {
       id: 3,
@@ -31,7 +40,8 @@ const GamingPage = () => {
       title: 'PlayStation 5 Digital',
       price: '2199.90',
       discount: '2499.90',
-      badge: 'OFERTA'
+      badge: 'OFERTA',
+      subcategory: 'Consolas'
     },
     {
       id: 4,
@@ -39,7 +49,8 @@ const GamingPage = () => {
       title: 'Xbox Series X',
       price: '2299.90',
       discount: null,
-      badge: null
+      badge: null,
+      subcategory: 'Consolas'
     },
     {
       id: 5,
@@ -47,7 +58,8 @@ const GamingPage = () => {
       title: 'Mouse Gaming RGB Pro',
       price: '149.90',
       discount: '199.90',
-      badge: 'OFERTA'
+      badge: 'OFERTA',
+      subcategory: 'Periféricos'
     },
     {
       id: 6,
@@ -55,7 +67,8 @@ const GamingPage = () => {
       title: 'Teclado Mecánico RGB',
       price: '299.90',
       discount: null,
-      badge: 'NUEVO'
+      badge: 'NUEVO',
+      subcategory: 'Periféricos'
     },
     {
       id: 7,
@@ -63,7 +76,8 @@ const GamingPage = () => {
       title: 'Auriculares Gaming 7.1',
       price: '249.90',
       discount: '349.90',
-      badge: 'OFERTA'
+      badge: 'OFERTA',
+      subcategory: 'Periféricos'
     },
     {
       id: 8,
@@ -71,7 +85,8 @@ const GamingPage = () => {
       title: 'Monitor Gaming 144Hz 27"',
       price: '899.90',
       discount: null,
-      badge: 'DESTACADO'
+      badge: 'DESTACADO',
+      subcategory: 'Periféricos'
     },
     {
       id: 9,
@@ -79,7 +94,8 @@ const GamingPage = () => {
       title: 'Cámara Streaming 4K',
       price: '299.90',
       discount: '399.90',
-      badge: 'OFERTA'
+      badge: 'OFERTA',
+      subcategory: 'Accesorios'
     },
     {
       id: 10,
@@ -87,7 +103,8 @@ const GamingPage = () => {
       title: 'Micrófono USB Profesional',
       price: '199.90',
       discount: null,
-      badge: null
+      badge: null,
+      subcategory: 'Accesorios'
     },
     {
       id: 11,
@@ -95,7 +112,8 @@ const GamingPage = () => {
       title: 'Pad Gaming XXL',
       price: '49.90',
       discount: '69.90',
-      badge: 'OFERTA'
+      badge: 'OFERTA',
+      subcategory: 'Accesorios'
     },
     {
       id: 12,
@@ -103,7 +121,8 @@ const GamingPage = () => {
       title: 'Luces LED RGB Setup',
       price: '89.90',
       discount: null,
-      badge: 'NUEVO'
+      badge: 'NUEVO',
+      subcategory: 'Accesorios'
     }
   ];
 

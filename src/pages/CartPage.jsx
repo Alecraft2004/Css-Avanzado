@@ -4,6 +4,18 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { useCart } from '../context/CartContext';
 
+/**
+ * Página del Carrito (CartPage)
+ * -----------------------------
+ * Muestra el resumen de la compra del usuario.
+ * 
+ * Funcionalidades:
+ * - Lista los productos agregados con su imagen, nombre y precio.
+ * - Permite aumentar o disminuir la cantidad de cada producto.
+ * - Permite eliminar productos del carrito.
+ * - Muestra el desglose de precios (subtotal, impuestos, total).
+ * - Persiste la información gracias al CartContext.
+ */
 const CartPage = () => {
   const { cart, removeFromCart, updateQuantity, getCartTotal, clearCart } = useCart();
 

@@ -1,6 +1,12 @@
 import { useState } from 'react';
 import ProductCard from './ProductCard';
 
+/**
+ * Componente BestSellers
+ * ----------------------
+ * Muestra una sección de "Los más vendidos" en la página de inicio.
+ * Implementa un carrusel personalizado para navegar entre los productos destacados.
+ */
 const BestSellers = () => {
   const [activeSlide, setActiveSlide] = useState(0);
 

@@ -1,5 +1,12 @@
 import { useEffect, useState } from 'react';
 
+/**
+ * Componente Footer
+ * -----------------
+ * El pie de página que aparece al final de todas las vistas.
+ * Muestra enlaces de navegación, redes sociales, métodos de pago
+ * y el copyright actualizado automáticamente.
+ */
 const Footer = () => {
   const [year, setYear] = useState(new Date().getFullYear());
 

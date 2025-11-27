@@ -1,5 +1,12 @@
 import CategoryPage from './CategoryPage';
 
+/**
+ * Página de Supermercado
+ * ----------------------
+ * Configura los datos específicos para la categoría de hogar y despensa.
+ * Define la lista de productos y sus subcategorías (Alimentos, Limpieza, etc.)
+ * y utiliza el componente genérico CategoryPage para mostrarlos.
+ */
 const SupermercadoPage = () => {
   const category = {
     name: 'Supermercado',
@@ -15,7 +22,8 @@ const SupermercadoPage = () => {
       title: 'Café Premium 500g',
       price: '29.90',
       discount: '39.90',
-      badge: 'OFERTA'
+      badge: 'OFERTA',
+      subcategory: 'Bebidas'
     },
     {
       id: 2,
@@ -23,7 +31,8 @@ const SupermercadoPage = () => {
       title: 'Aceite de Oliva Extra Virgen',
       price: '49.90',
       discount: null,
-      badge: null
+      badge: null,
+      subcategory: 'Alimentos'
     },
     {
       id: 3,
@@ -31,7 +40,8 @@ const SupermercadoPage = () => {
       title: 'Pack 12 Vinos Reserva',
       price: '299.90',
       discount: '399.90',
-      badge: 'OFERTA'
+      badge: 'OFERTA',
+      subcategory: 'Bebidas'
     },
     {
       id: 4,
@@ -39,7 +49,8 @@ const SupermercadoPage = () => {
       title: 'Detergente Líquido 3L',
       price: '24.90',
       discount: null,
-      badge: null
+      badge: null,
+      subcategory: 'Limpieza'
     },
     {
       id: 5,
@@ -47,7 +58,8 @@ const SupermercadoPage = () => {
       title: 'Shampoo Profesional 400ml',
       price: '39.90',
       discount: '49.90',
-      badge: 'OFERTA'
+      badge: 'OFERTA',
+      subcategory: 'Cuidado Personal'
     },
     {
       id: 6,
@@ -55,7 +67,8 @@ const SupermercadoPage = () => {
       title: 'Comida Premium para Perros 15kg',
       price: '189.90',
       discount: null,
-      badge: 'NUEVO'
+      badge: 'NUEVO',
+      subcategory: 'Mascotas'
     },
     {
       id: 7,
@@ -63,7 +76,8 @@ const SupermercadoPage = () => {
       title: 'Pasta Italiana Pack x6',
       price: '34.90',
       discount: '44.90',
-      badge: 'OFERTA'
+      badge: 'OFERTA',
+      subcategory: 'Alimentos'
     },
     {
       id: 8,
@@ -71,7 +85,8 @@ const SupermercadoPage = () => {
       title: 'Jugo Natural 100% Pack x12',
       price: '59.90',
       discount: null,
-      badge: null
+      badge: null,
+      subcategory: 'Bebidas'
     },
     {
       id: 9,
@@ -79,7 +94,8 @@ const SupermercadoPage = () => {
       title: 'Papel Higiénico Premium x24',
       price: '69.90',
       discount: '89.90',
-      badge: 'OFERTA'
+      badge: 'OFERTA',
+      subcategory: 'Limpieza'
     },
     {
       id: 10,
@@ -87,7 +103,8 @@ const SupermercadoPage = () => {
       title: 'Arroz Premium 5kg',
       price: '29.90',
       discount: null,
-      badge: null
+      badge: null,
+      subcategory: 'Alimentos'
     },
     {
       id: 11,
@@ -95,7 +112,8 @@ const SupermercadoPage = () => {
       title: 'Galletas Artesanales Pack x6',
       price: '24.90',
       discount: '34.90',
-      badge: 'OFERTA'
+      badge: 'OFERTA',
+      subcategory: 'Alimentos'
     },
     {
       id: 12,
@@ -103,7 +121,8 @@ const SupermercadoPage = () => {
       title: 'Agua Mineral Pack x12',
       price: '19.90',
       discount: null,
-      badge: null
+      badge: null,
+      subcategory: 'Bebidas'
     }
   ];
 

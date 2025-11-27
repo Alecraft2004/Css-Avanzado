@@ -1,3 +1,10 @@
+/**
+ * Componente Hero
+ * ---------------
+ * Es el banner principal o "escaparate" de la página de inicio.
+ * Utiliza un carrusel de Bootstrap para mostrar imágenes grandes
+ * y llamativas con las promociones más importantes del momento.
+ */
 const Hero = () => {
   return (
     <header className="hero">

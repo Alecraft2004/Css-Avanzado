@@ -1,6 +1,12 @@
 import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
+/**
+ * Componente PromoCategories
+ * --------------------------
+ * Muestra tarjetas grandes con las categorías principales (Gaming, Tecnología, etc.).
+ * Incluye animaciones de entrada (fade-in) cuando el usuario hace scroll hacia ellas.
+ */
 const PromoCategories = () => {
   const revealRefs = useRef([]);
 

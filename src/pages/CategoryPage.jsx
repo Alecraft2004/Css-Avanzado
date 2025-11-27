@@ -1,9 +1,29 @@
+import { useState } from 'react';
 import TopBar from '../components/TopBar';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ProductCard from '../components/ProductCard';
 
+/**
+ * Página Genérica de Categoría (CategoryPage)
+ * -------------------------------------------
+ * Este es un componente "plantilla" reutilizable para todas las páginas de categorías
+ * (Gaming, Tecnología, etc.).
+ * 
+ * Recibe como 'props':
+ * - category: Información de la categoría (nombre, icono, descripción, subcategorías).
+ * - products: La lista de productos a mostrar.
+ * 
+ * Funcionalidad clave:
+ * - Implementa el filtrado de productos por subcategoría usando el estado 'selectedCategory'.
+ */
 const CategoryPage = ({ category, products }) => {
+  const [selectedCategory, setSelectedCategory] = useState('Todos');
+
+  const filteredProducts = selectedCategory === 'Todos'
+    ? products
+    : products.filter(product => product.subcategory === selectedCategory);
+
   return (
     <>
       <TopBar />
@@ -26,15 +46,26 @@ const CategoryPage = ({ category, products }) => {
             <p className="lead text-muted">{category.description}</p>
             
             <div className="d-flex gap-3 flex-wrap mt-4">
-              <button className="btn btn-outline-primary rounded-pill">Todos</button>
+              <button 
+                className={`btn ${selectedCategory === 'Todos' ? 'btn-primary' : 'btn-outline-primary'} rounded-pill`}
+                onClick={() => setSelectedCategory('Todos')}
+              >
+                Todos
+              </button>
               {category.subcategories?.map((sub, index) => (
-                <button key={index} className="btn btn-outline-primary rounded-pill">{sub}</button>
+                <button 
+                  key={index} 
+                  className={`btn ${selectedCategory === sub ? 'btn-primary' : 'btn-outline-primary'} rounded-pill`}
+                  onClick={() => setSelectedCategory(sub)}
+                >
+                  {sub}
+                </button>
               ))}
             </div>
           </div>
 
           <div className="row g-4 mb-5">
-            {products.map((product) => (
+            {filteredProducts.map((product) => (
               <div key={product.id} className="col-6 col-md-4 col-lg-3">
                 <ProductCard
                   id={product.id}

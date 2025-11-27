@@ -2,6 +2,17 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 import { useCart } from '../context/CartContext';
 
+/**
+ * Componente Navbar
+ * -----------------
+ * Es la barra de navegación principal de la aplicación.
+ * 
+ * Responsabilidades:
+ * - Contiene el logo y enlaces a las páginas principales.
+ * - Incluye la barra de búsqueda para encontrar productos.
+ * - Muestra el icono del carrito con el contador de productos.
+ * - Maneja el menú desplegable en versiones móviles (hamburguesa).
+ */
 const Navbar = () => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
@@ -164,8 +175,8 @@ const Navbar = () => {
 
           <ul className="navbar-nav align-items-lg-center gap-lg-2">
             <li className="nav-item"><Link className="nav-link" to="/ofertas">Ofertas</Link></li>
-            <li className="nav-item"><a className="nav-link" href="#">Vender</a></li>
-            <li className="nav-item"><a className="nav-link" href="#">Ayuda</a></li>
+            <li className="nav-item"><Link className="nav-link" to="/vender">Vender</Link></li>
+            <li className="nav-item"><Link className="nav-link" to="/ayuda">Ayuda</Link></li>
             <li className="nav-item"><Link className="nav-link" to="/login">Ingresa</Link></li>
             <li className="nav-item"><Link className="nav-link" to="/register">Registrar</Link></li>
             <li className="nav-item">

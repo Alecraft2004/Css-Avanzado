@@ -1,5 +1,21 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 
+/**
+ * Contexto del Carrito (CartContext)
+ * ----------------------------------
+ * Este archivo actúa como el "cerebro" del carrito de compras.
+ * 
+ * Funcionalidades principales:
+ * 1. Almacena el estado global del carrito (qué productos hay, cantidades).
+ * 2. Persistencia: Guarda los datos en localStorage para que no se pierdan al recargar.
+ * 3. Provee funciones para:
+ *    - addToCart: Agregar productos.
+ *    - removeFromCart: Eliminar productos.
+ *    - updateQuantity: Cambiar cuántos items de un producto queremos.
+ *    - clearCart: Vaciar todo el carrito.
+ *    - getCartTotal: Calcular el precio total a pagar.
+ */
+
 const CartContext = createContext();
 
 export const useCart = () => {

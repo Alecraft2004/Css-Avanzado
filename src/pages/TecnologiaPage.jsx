@@ -1,11 +1,18 @@
 import CategoryPage from './CategoryPage';
 
+/**
+ * Página de Tecnología
+ * --------------------
+ * Configura los datos específicos para la categoría de gadgets y dispositivos.
+ * Define la lista de productos y sus subcategorías (Laptops, Smartphones, etc.)
+ * y utiliza el componente genérico CategoryPage para mostrarlos.
+ */
 const TecnologiaPage = () => {
   const category = {
     name: 'Tecnología',
     icon: 'bi-laptop',
     description: 'Los mejores dispositivos tecnológicos para tu día a día',
-    subcategories: ['Laptops', 'Smartphones', 'Tablets', 'Audio', 'Smart Home']
+    subcategories: ['Laptops', 'Smartphones', 'Tablets', 'Audio', 'Smart Home', 'Cámaras', 'Wearables', 'Accesorios']
   };
 
   const products = [
@@ -15,7 +22,8 @@ const TecnologiaPage = () => {
       title: 'MacBook Pro 14" M3',
       price: '6999.90',
       discount: null,
-      badge: 'NUEVO'
+      badge: 'NUEVO',
+      subcategory: 'Laptops'
     },
     {
       id: 2,
@@ -23,7 +31,8 @@ const TecnologiaPage = () => {
       title: 'Laptop Dell XPS 15',
       price: '4499.90',
       discount: '4999.90',
-      badge: 'OFERTA'
+      badge: 'OFERTA',
+      subcategory: 'Laptops'
     },
     {
       id: 3,
@@ -31,7 +40,8 @@ const TecnologiaPage = () => {
       title: 'iPhone 15 Pro Max',
       price: '4999.90',
       discount: null,
-      badge: 'DESTACADO'
+      badge: 'DESTACADO',
+      subcategory: 'Smartphones'
     },
     {
       id: 4,
@@ -39,7 +49,8 @@ const TecnologiaPage = () => {
       title: 'Samsung Galaxy S24 Ultra',
       price: '4299.90',
       discount: '4699.90',
-      badge: 'OFERTA'
+      badge: 'OFERTA',
+      subcategory: 'Smartphones'
     },
     {
       id: 5,
@@ -47,7 +58,8 @@ const TecnologiaPage = () => {
       title: 'iPad Pro 12.9"',
       price: '3999.90',
       discount: null,
-      badge: null
+      badge: null,
+      subcategory: 'Tablets'
     },
     {
       id: 6,
@@ -55,7 +67,8 @@ const TecnologiaPage = () => {
       title: 'Samsung Galaxy Tab S9',
       price: '2499.90',
       discount: '2899.90',
-      badge: 'OFERTA'
+      badge: 'OFERTA',
+      subcategory: 'Tablets'
     },
     {
       id: 7,
@@ -63,7 +76,8 @@ const TecnologiaPage = () => {
       title: 'AirPods Pro 2',
       price: '899.90',
       discount: null,
-      badge: 'NUEVO'
+      badge: 'NUEVO',
+      subcategory: 'Audio'
     },
     {
       id: 8,
@@ -71,7 +85,8 @@ const TecnologiaPage = () => {
       title: 'Apple Watch Series 9',
       price: '1699.90',
       discount: '1899.90',
-      badge: 'OFERTA'
+      badge: 'OFERTA',
+      subcategory: 'Wearables'
     },
     {
       id: 9,
@@ -79,7 +94,8 @@ const TecnologiaPage = () => {
       title: 'Speaker Inteligente Alexa',
       price: '299.90',
       discount: null,
-      badge: null
+      badge: null,
+      subcategory: 'Smart Home'
     },
     {
       id: 10,
@@ -87,7 +103,8 @@ const TecnologiaPage = () => {
       title: 'Cámara Deportiva 4K',
       price: '899.90',
       discount: '1099.90',
-      badge: 'OFERTA'
+      badge: 'OFERTA',
+      subcategory: 'Cámaras'
     },
     {
       id: 11,
@@ -95,7 +112,8 @@ const TecnologiaPage = () => {
       title: 'Drone con Cámara 4K',
       price: '1499.90',
       discount: null,
-      badge: 'DESTACADO'
+      badge: 'DESTACADO',
+      subcategory: 'Cámaras'
     },
     {
       id: 12,
@@ -103,7 +121,8 @@ const TecnologiaPage = () => {
       title: 'Power Bank 20000mAh',
       price: '129.90',
       discount: '179.90',
-      badge: 'OFERTA'
+      badge: 'OFERTA',
+      subcategory: 'Accesorios'
     }
   ];
 

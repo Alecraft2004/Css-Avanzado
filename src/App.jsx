@@ -9,6 +9,8 @@ import GamingPage from './pages/GamingPage';
 import TecnologiaPage from './pages/TecnologiaPage';
 import SupermercadoPage from './pages/SupermercadoPage';
 import LibrosPage from './pages/LibrosPage';
+import SellPage from './pages/SellPage';
+import HelpPage from './pages/HelpPage';
 import Hero from './components/Hero';
 
 function App() {
@@ -20,6 +22,8 @@ function App() {
         <Route path="/buscar" element={<SearchPage />} />
         <Route path="/ofertas" element={<OffersPage />} />
         <Route path="/carrito" element={<CartPage />} />
+        <Route path="/vender" element={<SellPage />} />
+        <Route path="/ayuda" element={<HelpPage />} />
         <Route path="/categoria/gaming" element={<GamingPage />} />
         <Route path="/categoria/tecnologia" element={<TecnologiaPage />} />
         <Route path="/categoria/supermercado" element={<SupermercadoPage />} />

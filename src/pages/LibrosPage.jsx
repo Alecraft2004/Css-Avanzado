@@ -1,5 +1,12 @@
 import CategoryPage from './CategoryPage';
 
+/**
+ * Página de Libros
+ * ----------------
+ * Configura los datos específicos para la categoría de lectura.
+ * Define la lista de libros y sus géneros (Ficción, No Ficción, etc.)
+ * y utiliza el componente genérico CategoryPage para mostrarlos.
+ */
 const LibrosPage = () => {
   const category = {
     name: 'Libros',
@@ -15,7 +22,8 @@ const LibrosPage = () => {
       title: 'El Principito - Edición Especial',
       price: '49.90',
       discount: '69.90',
-      badge: 'OFERTA'
+      badge: 'OFERTA',
+      subcategory: 'Infantil'
     },
     {
       id: 2,
@@ -23,7 +31,8 @@ const LibrosPage = () => {
       title: 'Cien Años de Soledad',
       price: '59.90',
       discount: null,
-      badge: 'DESTACADO'
+      badge: 'DESTACADO',
+      subcategory: 'Ficción'
     },
     {
       id: 3,
@@ -31,7 +40,8 @@ const LibrosPage = () => {
       title: 'Harry Potter - Colección Completa',
       price: '399.90',
       discount: '499.90',
-      badge: 'OFERTA'
+      badge: 'OFERTA',
+      subcategory: 'Infantil'
     },
     {
       id: 4,
@@ -39,7 +49,8 @@ const LibrosPage = () => {
       title: 'El Arte de la Guerra',
       price: '39.90',
       discount: null,
-      badge: null
+      badge: null,
+      subcategory: 'No Ficción'
     },
     {
       id: 5,
@@ -47,7 +58,8 @@ const LibrosPage = () => {
       title: 'Sapiens: De animales a dioses',
       price: '79.90',
       discount: '99.90',
-      badge: 'OFERTA'
+      badge: 'OFERTA',
+      subcategory: 'No Ficción'
     },
     {
       id: 6,
@@ -55,7 +67,8 @@ const LibrosPage = () => {
       title: 'Don Quijote de la Mancha',
       price: '69.90',
       discount: null,
-      badge: 'NUEVO'
+      badge: 'NUEVO',
+      subcategory: 'Ficción'
     },
     {
       id: 7,
@@ -63,7 +76,8 @@ const LibrosPage = () => {
       title: '1984 - George Orwell',
       price: '44.90',
       discount: '59.90',
-      badge: 'OFERTA'
+      badge: 'OFERTA',
+      subcategory: 'Ficción'
     },
     {
       id: 8,
@@ -71,7 +85,8 @@ const LibrosPage = () => {
       title: 'El Señor de los Anillos - Trilogía',
       price: '199.90',
       discount: null,
-      badge: 'DESTACADO'
+      badge: 'DESTACADO',
+      subcategory: 'Ficción'
     },
     {
       id: 9,
@@ -79,7 +94,8 @@ const LibrosPage = () => {
       title: 'Orgullo y Prejuicio',
       price: '49.90',
       discount: '69.90',
-      badge: 'OFERTA'
+      badge: 'OFERTA',
+      subcategory: 'Ficción'
     },
     {
       id: 10,
@@ -87,7 +103,8 @@ const LibrosPage = () => {
       title: 'Crimen y Castigo',
       price: '54.90',
       discount: null,
-      badge: null
+      badge: null,
+      subcategory: 'Ficción'
     },
     {
       id: 11,
@@ -95,7 +112,8 @@ const LibrosPage = () => {
       title: 'Rayuela - Julio Cortázar',
       price: '59.90',
       discount: '79.90',
-      badge: 'OFERTA'
+      badge: 'OFERTA',
+      subcategory: 'Ficción'
     },
     {
       id: 12,
@@ -103,7 +121,8 @@ const LibrosPage = () => {
       title: 'La Sombra del Viento',
       price: '64.90',
       discount: null,
-      badge: 'NUEVO'
+      badge: 'NUEVO',
+      subcategory: 'Ficción'
     }
   ];
 

@@ -1,9 +1,21 @@
+import { useState } from 'react';
 import TopBar from '../components/TopBar';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ProductCard from '../components/ProductCard';
 
+/**
+ * Página de Ofertas (OffersPage)
+ * ------------------------------
+ * Muestra una colección curada de productos con descuento.
+ * 
+ * Funcionalidad:
+ * - Permite filtrar las ofertas por categorías generales (Electrónica, Moda, etc.).
+ * - Reutiliza el componente ProductCard para mostrar cada ítem.
+ */
 const OffersPage = () => {
+  const [selectedCategory, setSelectedCategory] = useState('Todas');
+
   const offerProducts = [
     {
       id: 1,
@@ -11,7 +23,8 @@ const OffersPage = () => {
       title: 'Auriculares Premium',
       price: '149.90',
       discount: '199.90',
-      badge: 'OFERTA'
+      badge: 'OFERTA',
+      category: 'Electrónica'
     },
     {
       id: 2,
@@ -19,7 +32,8 @@ const OffersPage = () => {
       title: 'Smartwatch Fitness',
       price: '299.90',
       discount: '399.90',
-      badge: 'OFERTA'
+      badge: 'OFERTA',
+      category: 'Electrónica'
     },
     {
       id: 3,
@@ -27,7 +41,8 @@ const OffersPage = () => {
       title: 'Gafas de Sol Polarizadas',
       price: '79.90',
       discount: '129.90',
-      badge: 'OFERTA'
+      badge: 'OFERTA',
+      category: 'Moda'
     },
     {
       id: 4,
@@ -35,7 +50,8 @@ const OffersPage = () => {
       title: 'Zapatillas Deportivas',
       price: '189.90',
       discount: '249.90',
-      badge: 'OFERTA'
+      badge: 'OFERTA',
+      category: 'Deportes'
     },
     {
       id: 5,
@@ -43,7 +59,8 @@ const OffersPage = () => {
       title: 'Laptop Ultrabook 14"',
       price: '2499.90',
       discount: '2999.90',
-      badge: 'OFERTA'
+      badge: 'OFERTA',
+      category: 'Electrónica'
     },
     {
       id: 6,
@@ -51,7 +68,8 @@ const OffersPage = () => {
       title: 'Mouse Gaming RGB',
       price: '89.90',
       discount: '119.90',
-      badge: 'OFERTA'
+      badge: 'OFERTA',
+      category: 'Electrónica'
     },
     {
       id: 7,
@@ -59,7 +77,8 @@ const OffersPage = () => {
       title: 'Teclado Mecánico',
       price: '199.90',
       discount: '279.90',
-      badge: 'OFERTA'
+      badge: 'OFERTA',
+      category: 'Electrónica'
     },
     {
       id: 8,
@@ -67,7 +86,8 @@ const OffersPage = () => {
       title: 'Cámara Web 4K',
       price: '159.90',
       discount: '219.90',
-      badge: 'OFERTA'
+      badge: 'OFERTA',
+      category: 'Electrónica'
     },
     {
       id: 9,
@@ -75,7 +95,8 @@ const OffersPage = () => {
       title: 'Monitor LED 24" Full HD',
       price: '449.90',
       discount: '599.90',
-      badge: 'OFERTA'
+      badge: 'OFERTA',
+      category: 'Electrónica'
     },
     {
       id: 10,
@@ -83,7 +104,8 @@ const OffersPage = () => {
       title: 'Mochila Anti-robo USB',
       price: '99.90',
       discount: '149.90',
-      badge: 'OFERTA'
+      badge: 'OFERTA',
+      category: 'Moda'
     },
     {
       id: 11,
@@ -91,7 +113,8 @@ const OffersPage = () => {
       title: 'Tablet 10" 128GB',
       price: '699.90',
       discount: '899.90',
-      badge: 'OFERTA'
+      badge: 'OFERTA',
+      category: 'Electrónica'
     },
     {
       id: 12,
@@ -99,7 +122,8 @@ const OffersPage = () => {
       title: 'Parlante Bluetooth 360°',
       price: '129.90',
       discount: '179.90',
-      badge: 'OFERTA'
+      badge: 'OFERTA',
+      category: 'Electrónica'
     },
     {
       id: 13,
@@ -107,7 +131,8 @@ const OffersPage = () => {
       title: 'Laptop Gaming 15.6"',
       price: '3299.90',
       discount: '3999.90',
-      badge: 'OFERTA'
+      badge: 'OFERTA',
+      category: 'Electrónica'
     },
     {
       id: 14,
@@ -115,7 +140,8 @@ const OffersPage = () => {
       title: 'MacBook Pro 13"',
       price: '4499.90',
       discount: '4999.90',
-      badge: 'OFERTA'
+      badge: 'OFERTA',
+      category: 'Electrónica'
     },
     {
       id: 15,
@@ -123,7 +149,8 @@ const OffersPage = () => {
       title: 'iPhone 14 Pro 256GB',
       price: '3799.90',
       discount: '4299.90',
-      badge: 'OFERTA'
+      badge: 'OFERTA',
+      category: 'Electrónica'
     },
     {
       id: 16,
@@ -131,9 +158,14 @@ const OffersPage = () => {
       title: 'Samsung Galaxy S23',
       price: '2999.90',
       discount: '3499.90',
-      badge: 'OFERTA'
+      badge: 'OFERTA',
+      category: 'Electrónica'
     }
   ];
+
+  const filteredProducts = selectedCategory === 'Todas'
+    ? offerProducts
+    : offerProducts.filter(product => product.category === selectedCategory);
 
   return (
     <>
@@ -151,16 +183,41 @@ const OffersPage = () => {
               Encuentra los mejores descuentos en productos seleccionados
             </p>
             <div className="d-flex justify-content-center gap-3 flex-wrap mt-4">
-              <button className="btn btn-outline-primary rounded-pill">Todas</button>
-              <button className="btn btn-outline-primary rounded-pill">Electrónica</button>
-              <button className="btn btn-outline-primary rounded-pill">Moda</button>
-              <button className="btn btn-outline-primary rounded-pill">Deportes</button>
-              <button className="btn btn-outline-primary rounded-pill">Hogar</button>
+              <button 
+                className={`btn ${selectedCategory === 'Todas' ? 'btn-primary' : 'btn-outline-primary'} rounded-pill`}
+                onClick={() => setSelectedCategory('Todas')}
+              >
+                Todas
+              </button>
+              <button 
+                className={`btn ${selectedCategory === 'Electrónica' ? 'btn-primary' : 'btn-outline-primary'} rounded-pill`}
+                onClick={() => setSelectedCategory('Electrónica')}
+              >
+                Electrónica
+              </button>
+              <button 
+                className={`btn ${selectedCategory === 'Moda' ? 'btn-primary' : 'btn-outline-primary'} rounded-pill`}
+                onClick={() => setSelectedCategory('Moda')}
+              >
+                Moda
+              </button>
+              <button 
+                className={`btn ${selectedCategory === 'Deportes' ? 'btn-primary' : 'btn-outline-primary'} rounded-pill`}
+                onClick={() => setSelectedCategory('Deportes')}
+              >
+                Deportes
+              </button>
+              <button 
+                className={`btn ${selectedCategory === 'Hogar' ? 'btn-primary' : 'btn-outline-primary'} rounded-pill`}
+                onClick={() => setSelectedCategory('Hogar')}
+              >
+                Hogar
+              </button>
             </div>
           </div>
 
           <div className="row g-4 mb-5">
-            {offerProducts.map((product) => (
+            {filteredProducts.map((product) => (
               <div key={product.id} className="col-6 col-md-4 col-lg-3">
                 <ProductCard
                   id={product.id}

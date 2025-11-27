@@ -1,6 +1,12 @@
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
+/**
+ * Página de Inicio de Sesión (Login)
+ * ----------------------------------
+ * Muestra el formulario para que los usuarios ingresen a su cuenta.
+ * (Actualmente es una interfaz visual, no conecta con un backend real).
+ */
 const Login = () => {
   const [year, setYear] = useState(new Date().getFullYear());
 

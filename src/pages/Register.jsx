@@ -1,6 +1,12 @@
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
+/**
+ * Página de Registro (Register)
+ * -----------------------------
+ * Muestra el formulario para crear una nueva cuenta de usuario.
+ * Incluye campos para nombre, correo y contraseña.
+ */
 const Register = () => {
   const [year, setYear] = useState(new Date().getFullYear());
 

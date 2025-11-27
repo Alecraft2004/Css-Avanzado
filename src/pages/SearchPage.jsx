@@ -4,6 +4,16 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ProductCard from '../components/ProductCard';
 
+/**
+ * Página de Búsqueda (SearchPage)
+ * -------------------------------
+ * Se encarga de mostrar los resultados cuando el usuario busca algo en el Navbar.
+ * 
+ * Funcionalidad:
+ * - Lee el parámetro 'q' de la URL para saber qué buscó el usuario.
+ * - Filtra una "base de datos" local de productos buscando coincidencias en el título o categoría.
+ * - Muestra los resultados encontrados o un mensaje si no hay coincidencias.
+ */
 const SearchPage = () => {
   const [searchParams] = useSearchParams();
   const query = searchParams.get('q') || '';

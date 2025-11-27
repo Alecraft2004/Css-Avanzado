@@ -1,5 +1,11 @@
 import ProductCard from './ProductCard';
 
+/**
+ * Componente Offers
+ * -----------------
+ * Muestra una cuadrícula (grid) con productos en oferta en la página de inicio.
+ * Es una vista rápida de descuentos destacados.
+ */
 const Offers = () => {
   const offerProducts = [
     {
