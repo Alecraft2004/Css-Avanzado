@@ -90,18 +90,18 @@ const CartPage = () => {
                       <div className="row align-items-center">
                         <div className="col-md-2 col-3">
                           <img 
-                            src={item.image} 
-                            alt={item.title} 
+                            src={item.imagenPrincipal} 
+                            alt={item.titulo} 
                             className="img-fluid rounded"
                             style={{ objectFit: 'cover', height: '80px' }}
                           />
                         </div>
                         
                         <div className="col-md-4 col-9">
-                          <h6 className="mb-1">{item.title}</h6>
-                          {item.discount && (
+                          <h6 className="mb-1">{item.titulo}</h6>
+                          {item.precioOriginal && (
                             <small className="text-muted text-decoration-line-through">
-                              S/ {item.discount}
+                              S/ {item.precioOriginal}
                             </small>
                           )}
                           {item.badge && (
@@ -136,7 +136,7 @@ const CartPage = () => {
 
                         <div className="col-md-2 col-4 mt-2 mt-md-0 text-center">
                           <span className="fw-bold text-primary fs-5">
-                            S/ {(parseFloat(item.price) * item.quantity).toFixed(2)}
+                            S/ {(parseFloat(item.precio) * item.quantity).toFixed(2)}
                           </span>
                         </div>
 

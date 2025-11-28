@@ -1,22 +1,35 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { login } from '../api/client';
+import { useAuth } from '../context/AuthContext';
 
-/**
- * Página de Inicio de Sesión (Login)
- * ----------------------------------
- * Muestra el formulario para que los usuarios ingresen a su cuenta.
- * (Actualmente es una interfaz visual, no conecta con un backend real).
- */
 const Login = () => {
   const [year, setYear] = useState(new Date().getFullYear());
+  const navigate = useNavigate();
+  const { loginUser } = useAuth();
+  
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
   useEffect(() => {
     setYear(new Date().getFullYear());
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Lógica de login aquí
+    setError('');
+    
+    try {
+      const response = await login(email, password);
+      // El backend devuelve { message: '...', user: { ... } }
+      // Pasamos solo el objeto user al contexto
+      loginUser(response.user);
+      navigate('/');
+    } catch (err) {
+      console.error(err);
+      setError('Credenciales inválidas o error en el servidor.');
+    }
   };
 
   return (
@@ -28,14 +41,31 @@ const Login = () => {
             <div className="card shadow-sm border-0 rounded-4">
               <div className="card-body p-4 p-md-5">
                 <h1 className="h4 mb-4 text-center fw-bold">Iniciar sesión</h1>
+                {error && <div className="alert alert-danger">{error}</div>}
                 <form onSubmit={handleSubmit} noValidate>
                   <div className="mb-3">
                     <label htmlFor="email" className="form-label">Correo electrónico</label>
-                    <input type="email" className="form-control" id="email" placeholder="tu@correo.com" required />
+                    <input 
+                      type="email" 
+                      className="form-control" 
+                      id="email" 
+                      placeholder="tu@correo.com" 
+                      required 
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
                   </div>
                   <div className="mb-3">
                     <label htmlFor="password" className="form-label">Contraseña</label>
-                    <input type="password" className="form-control" id="password" placeholder="••••••" required />
+                    <input 
+                      type="password" 
+                      className="form-control" 
+                      id="password" 
+                      placeholder="••••••" 
+                      required 
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
                   </div>
                   <div className="d-flex justify-content-between align-items-center mb-3">
                     <div className="form-check">

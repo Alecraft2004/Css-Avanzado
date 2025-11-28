@@ -1,171 +1,42 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import TopBar from '../components/TopBar';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ProductCard from '../components/ProductCard';
+import { getProductos } from '../api/client';
 
-/**
- * Página de Ofertas (OffersPage)
- * ------------------------------
- * Muestra una colección curada de productos con descuento.
- * 
- * Funcionalidad:
- * - Permite filtrar las ofertas por categorías generales (Electrónica, Moda, etc.).
- * - Reutiliza el componente ProductCard para mostrar cada ítem.
- */
 const OffersPage = () => {
   const [selectedCategory, setSelectedCategory] = useState('Todas');
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const offerProducts = [
-    {
-      id: 1,
-      image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=800&auto=format&fit=crop',
-      title: 'Auriculares Premium',
-      price: '149.90',
-      discount: '199.90',
-      badge: 'OFERTA',
-      category: 'Electrónica'
-    },
-    {
-      id: 2,
-      image: 'https://images.unsplash.com/photo-1546868871-7041f2a55e12?q=80&w=800&auto=format&fit=crop',
-      title: 'Smartwatch Fitness',
-      price: '299.90',
-      discount: '399.90',
-      badge: 'OFERTA',
-      category: 'Electrónica'
-    },
-    {
-      id: 3,
-      image: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?q=80&w=800&auto=format&fit=crop',
-      title: 'Gafas de Sol Polarizadas',
-      price: '79.90',
-      discount: '129.90',
-      badge: 'OFERTA',
-      category: 'Moda'
-    },
-    {
-      id: 4,
-      image: 'https://images.unsplash.com/photo-1585386959984-a4155224a1ad?q=80&w=800&auto=format&fit=crop',
-      title: 'Zapatillas Deportivas',
-      price: '189.90',
-      discount: '249.90',
-      badge: 'OFERTA',
-      category: 'Deportes'
-    },
-    {
-      id: 5,
-      image: 'https://images.unsplash.com/photo-1484704849700-f032a568e944?q=80&w=800&auto=format&fit=crop',
-      title: 'Laptop Ultrabook 14"',
-      price: '2499.90',
-      discount: '2999.90',
-      badge: 'OFERTA',
-      category: 'Electrónica'
-    },
-    {
-      id: 6,
-      image: 'https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?q=80&w=800&auto=format&fit=crop',
-      title: 'Mouse Gaming RGB',
-      price: '89.90',
-      discount: '119.90',
-      badge: 'OFERTA',
-      category: 'Electrónica'
-    },
-    {
-      id: 7,
-      image: 'https://images.unsplash.com/photo-1583394838336-acd977736f90?q=80&w=800&auto=format&fit=crop',
-      title: 'Teclado Mecánico',
-      price: '199.90',
-      discount: '279.90',
-      badge: 'OFERTA',
-      category: 'Electrónica'
-    },
-    {
-      id: 8,
-      image: 'https://images.unsplash.com/photo-1587829741301-dc798b83add3?q=80&w=800&auto=format&fit=crop',
-      title: 'Cámara Web 4K',
-      price: '159.90',
-      discount: '219.90',
-      badge: 'OFERTA',
-      category: 'Electrónica'
-    },
-    {
-      id: 9,
-      image: 'https://images.unsplash.com/photo-1625758452550-97b4f3c0c3bb?q=80&w=800&auto=format&fit=crop',
-      title: 'Monitor LED 24" Full HD',
-      price: '449.90',
-      discount: '599.90',
-      badge: 'OFERTA',
-      category: 'Electrónica'
-    },
-    {
-      id: 10,
-      image: 'https://images.unsplash.com/photo-1572635196243-4dd75fbdbd7f?q=80&w=800&auto=format&fit=crop',
-      title: 'Mochila Anti-robo USB',
-      price: '99.90',
-      discount: '149.90',
-      badge: 'OFERTA',
-      category: 'Moda'
-    },
-    {
-      id: 11,
-      image: 'https://images.unsplash.com/photo-1609081219090-a6d81d3085bf?q=80&w=800&auto=format&fit=crop',
-      title: 'Tablet 10" 128GB',
-      price: '699.90',
-      discount: '899.90',
-      badge: 'OFERTA',
-      category: 'Electrónica'
-    },
-    {
-      id: 12,
-      image: 'https://images.unsplash.com/photo-1572635196184-84e35138cf62?q=80&w=800&auto=format&fit=crop',
-      title: 'Parlante Bluetooth 360°',
-      price: '129.90',
-      discount: '179.90',
-      badge: 'OFERTA',
-      category: 'Electrónica'
-    },
-    {
-      id: 13,
-      image: 'https://images.unsplash.com/photo-1593642632823-8f785ba67e45?q=80&w=800&auto=format&fit=crop',
-      title: 'Laptop Gaming 15.6"',
-      price: '3299.90',
-      discount: '3999.90',
-      badge: 'OFERTA',
-      category: 'Electrónica'
-    },
-    {
-      id: 14,
-      image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=800&auto=format&fit=crop',
-      title: 'MacBook Pro 13"',
-      price: '4499.90',
-      discount: '4999.90',
-      badge: 'OFERTA',
-      category: 'Electrónica'
-    },
-    {
-      id: 15,
-      image: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=800&auto=format&fit=crop',
-      title: 'iPhone 14 Pro 256GB',
-      price: '3799.90',
-      discount: '4299.90',
-      badge: 'OFERTA',
-      category: 'Electrónica'
-    },
-    {
-      id: 16,
-      image: 'https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?q=80&w=800&auto=format&fit=crop',
-      title: 'Samsung Galaxy S23',
-      price: '2999.90',
-      discount: '3499.90',
-      badge: 'OFERTA',
-      category: 'Electrónica'
-    }
-  ];
+  useEffect(() => {
+    const fetchOffers = async () => {
+      try {
+        const allProducts = await getProductos();
+        // Filtrar productos que tengan precioOriginal (indicando oferta)
+        // y que precioOriginal sea mayor que precio actual
+        const offers = allProducts.filter(p => 
+          p.precioOriginal && 
+          parseFloat(p.precioOriginal) > parseFloat(p.precio)
+        );
+        setProducts(offers);
+      } catch (error) {
+        console.error('Error fetching offers:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchOffers();
+  }, []);
 
   const filteredProducts = selectedCategory === 'Todas'
-    ? offerProducts
-    : offerProducts.filter(product => product.category === selectedCategory);
+    ? products
+    : products.filter(product => product.categoria === selectedCategory);
+
+  // Obtener categorías únicas de los productos en oferta
+  const categories = ['Todas', ...new Set(products.map(p => p.categoria).filter(Boolean))];
 
   return (
     <>
@@ -177,65 +48,47 @@ const OffersPage = () => {
           <div className="text-center mb-5">
             <h1 className="display-4 fw-bold mb-3">
               <i className="bi bi-tag-fill text-danger me-3"></i>
-              Ofertas especiales
+              Ofertas Relámpago
             </h1>
-            <p className="lead text-muted">
-              Encuentra los mejores descuentos en productos seleccionados
-            </p>
+            <p className="lead text-muted">Aprovecha los mejores descuentos por tiempo limitado</p>
+            
             <div className="d-flex justify-content-center gap-3 flex-wrap mt-4">
-              <button 
-                className={`btn ${selectedCategory === 'Todas' ? 'btn-primary' : 'btn-outline-primary'} rounded-pill`}
-                onClick={() => setSelectedCategory('Todas')}
-              >
-                Todas
-              </button>
-              <button 
-                className={`btn ${selectedCategory === 'Electrónica' ? 'btn-primary' : 'btn-outline-primary'} rounded-pill`}
-                onClick={() => setSelectedCategory('Electrónica')}
-              >
-                Electrónica
-              </button>
-              <button 
-                className={`btn ${selectedCategory === 'Moda' ? 'btn-primary' : 'btn-outline-primary'} rounded-pill`}
-                onClick={() => setSelectedCategory('Moda')}
-              >
-                Moda
-              </button>
-              <button 
-                className={`btn ${selectedCategory === 'Deportes' ? 'btn-primary' : 'btn-outline-primary'} rounded-pill`}
-                onClick={() => setSelectedCategory('Deportes')}
-              >
-                Deportes
-              </button>
-              <button 
-                className={`btn ${selectedCategory === 'Hogar' ? 'btn-primary' : 'btn-outline-primary'} rounded-pill`}
-                onClick={() => setSelectedCategory('Hogar')}
-              >
-                Hogar
-              </button>
+              {categories.map(cat => (
+                <button 
+                  key={cat}
+                  className={`btn ${selectedCategory === cat ? 'btn-primary' : 'btn-outline-primary'} rounded-pill`}
+                  onClick={() => setSelectedCategory(cat)}
+                >
+                  {cat}
+                </button>
+              ))}
             </div>
           </div>
 
-          <div className="row g-4 mb-5">
-            {filteredProducts.map((product) => (
-              <div key={product.id} className="col-6 col-md-4 col-lg-3">
-                <ProductCard
-                  id={product.id}
-                  image={product.image}
-                  title={product.title}
-                  price={product.price}
-                  discount={product.discount}
-                  badge={product.badge}
-                />
-              </div>
-            ))}
-          </div>
-
-          <div className="text-center">
-            <button className="btn btn-primary btn-lg rounded-pill px-5">
-              Cargar más ofertas
-            </button>
-          </div>
+          {loading ? (
+            <div className="text-center py-5">Cargando ofertas...</div>
+          ) : (
+            <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 mb-5">
+              {filteredProducts.length > 0 ? (
+                filteredProducts.map((product) => (
+                  <div key={product.id} className="col">
+                    <ProductCard
+                      id={product.id}
+                      image={product.imagenPrincipal}
+                      title={product.titulo}
+                      price={product.precio}
+                      discount={product.precioOriginal}
+                      badge={product.badge || 'OFERTA'}
+                    />
+                  </div>
+                ))
+              ) : (
+                <div className="col-12 text-center">
+                  <p className="text-muted">No hay ofertas disponibles en este momento.</p>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </div>
 

@@ -1,48 +1,22 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
 
-/**
- * Componente Navbar
- * -----------------
- * Es la barra de navegación principal de la aplicación.
- * 
- * Responsabilidades:
- * - Contiene el logo y enlaces a las páginas principales.
- * - Incluye la barra de búsqueda para encontrar productos.
- * - Muestra el icono del carrito con el contador de productos.
- * - Maneja el menú desplegable en versiones móviles (hamburguesa).
- */
 const Navbar = () => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const searchRef = useRef(null);
-  const { getCartCount } = useCart();
+  const { getItemsCount } = useCart();
+  const { user, logoutUser } = useAuth();
 
-  // Base de datos de productos para sugerencias
+  // Base de datos de productos para sugerencias (Mock)
   const allProducts = [
-    { id: 1, title: 'Silla Gaming Ergonómica', price: '599.90', image: 'https://images.unsplash.com/photo-1593305841991-05c297ba4575?q=80&w=400&auto=format&fit=crop', category: 'Gaming' },
-    { id: 2, title: 'PC Gaming RTX 4070', price: '4999.90', image: 'https://images.unsplash.com/photo-1538481199705-c710c4e965fc?q=80&w=400&auto=format&fit=crop', category: 'Gaming' },
-    { id: 3, title: 'PlayStation 5 Digital', price: '2199.90', image: 'https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?q=80&w=400&auto=format&fit=crop', category: 'Gaming' },
-    { id: 4, title: 'Mouse Gaming RGB Pro', price: '149.90', image: 'https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?q=80&w=400&auto=format&fit=crop', category: 'Gaming' },
-    { id: 5, title: 'Teclado Mecánico RGB', price: '299.90', image: 'https://images.unsplash.com/photo-1583394838336-acd977736f90?q=80&w=400&auto=format&fit=crop', category: 'Gaming' },
-    { id: 6, title: 'MacBook Pro 14" M3', price: '6999.90', image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=400&auto=format&fit=crop', category: 'Tecnología' },
-    { id: 7, title: 'Laptop Dell XPS 15', price: '4499.90', image: 'https://images.unsplash.com/photo-1484704849700-f032a568e944?q=80&w=400&auto=format&fit=crop', category: 'Tecnología' },
-    { id: 8, title: 'iPhone 15 Pro Max', price: '4999.90', image: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=400&auto=format&fit=crop', category: 'Tecnología' },
-    { id: 9, title: 'Samsung Galaxy S24 Ultra', price: '4299.90', image: 'https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?q=80&w=400&auto=format&fit=crop', category: 'Tecnología' },
-    { id: 10, title: 'AirPods Pro 2', price: '899.90', image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=400&auto=format&fit=crop', category: 'Tecnología' },
-    { id: 11, title: 'Apple Watch Series 9', price: '1699.90', image: 'https://images.unsplash.com/photo-1546868871-7041f2a55e12?q=80&w=400&auto=format&fit=crop', category: 'Tecnología' },
-    { id: 12, title: 'Café Premium 500g', price: '29.90', image: 'https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=400&auto=format&fit=crop', category: 'Supermercado' },
-    { id: 13, title: 'Pack 12 Vinos Reserva', price: '299.90', image: 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?q=80&w=400&auto=format&fit=crop', category: 'Supermercado' },
-    { id: 14, title: 'El Principito - Edición Especial', price: '49.90', image: 'https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=400&auto=format&fit=crop', category: 'Libros' },
-    { id: 15, title: 'Cien Años de Soledad', price: '59.90', image: 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=400&auto=format&fit=crop', category: 'Libros' },
-    { id: 16, title: 'Harry Potter - Colección Completa', price: '399.90', image: 'https://images.unsplash.com/photo-1589998059171-988d887df646?q=80&w=400&auto=format&fit=crop', category: 'Libros' },
-    { id: 17, title: 'Auriculares Premium', price: '149.90', image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=400&auto=format&fit=crop', category: 'Tecnología' },
-    { id: 18, title: 'Monitor Gaming 144Hz 27"', price: '899.90', image: 'https://images.unsplash.com/photo-1625758452550-97b4f3c0c3bb?q=80&w=400&auto=format&fit=crop', category: 'Gaming' },
-    { id: 19, title: 'Tablet 10" 128GB', price: '699.90', image: 'https://images.unsplash.com/photo-1609081219090-a6d81d3085bf?q=80&w=400&auto=format&fit=crop', category: 'Tecnología' },
-    { id: 20, title: 'Sapiens: De animales a dioses', price: '79.90', image: 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=400&auto=format&fit=crop', category: 'Libros' },
+    { id: '1', title: 'Silla Gaming Ergonómica', price: 599.90, image: 'https://images.unsplash.com/photo-1593305841991-05c297ba4575?q=80&w=400&auto=format&fit=crop', category: 'Gaming' },
+    { id: '2', title: 'PC Gaming RTX 4070', price: 4999.90, image: 'https://images.unsplash.com/photo-1538481199705-c710c4e965fc?q=80&w=400&auto=format&fit=crop', category: 'Gaming' },
+    // ... más productos mock
   ];
 
   useEffect(() => {
@@ -83,11 +57,6 @@ const Navbar = () => {
     }
   };
 
-  const handleSuggestionClick = () => {
-    setShowSuggestions(false);
-    setSearchQuery('');
-  };
-
   return (
     <nav className="navbar navbar-expand-lg sticky-top bg-body shadow-sm">
       <div className="container-xl">
@@ -101,90 +70,104 @@ const Navbar = () => {
         </button>
 
         <div className="collapse navbar-collapse" id="mainNav">
-          <ul className="navbar-nav me-3 mt-2 mt-lg-0">
+          
+          {/* Menú de Categorías */}
+          <ul className="navbar-nav me-3">
             <li className="nav-item dropdown">
-              <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <a className="nav-link dropdown-toggle fw-medium" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Categorías
               </a>
               <ul className="dropdown-menu">
-                <li><Link className="dropdown-item" to="/categoria/gaming">Gaming</Link></li>
-                <li><Link className="dropdown-item" to="/categoria/tecnologia">Tecnología</Link></li>
-                <li><Link className="dropdown-item" to="/categoria/supermercado">Supermercado</Link></li>
-                <li><Link className="dropdown-item" to="/categoria/libros">Libros</Link></li>
+                <li><Link className="dropdown-item" to="/categoria/gaming"><i className="bi bi-controller me-2"></i>Gaming</Link></li>
+                <li><Link className="dropdown-item" to="/categoria/tecnologia"><i className="bi bi-laptop me-2"></i>Tecnología</Link></li>
+                <li><Link className="dropdown-item" to="/categoria/supermercado"><i className="bi bi-cart4 me-2"></i>Supermercado</Link></li>
+                <li><Link className="dropdown-item" to="/categoria/libros"><i className="bi bi-book me-2"></i>Libros</Link></li>
               </ul>
             </li>
           </ul>
 
-          <div className="flex-grow-1 me-lg-3 position-relative" ref={searchRef}>
-            <form className="d-flex" role="search" aria-label="Buscador general" onSubmit={handleSearch}>
+          <form className="d-flex mx-lg-auto my-2 my-lg-0 search-form position-relative" role="search" onSubmit={handleSearch} ref={searchRef}>
+            <div className="input-group">
+              <span className="input-group-text bg-light border-end-0">
+                <i className="bi bi-search text-muted"></i>
+              </span>
               <input 
-                className="form-control form-control-lg me-2 rounded-pill search-input" 
+                className="form-control border-start-0 bg-light ps-0" 
                 type="search" 
-                placeholder="Buscar productos, marcas y más…" 
+                placeholder="Buscar productos, marcas y más..." 
                 aria-label="Buscar"
                 value={searchQuery}
                 onChange={handleSearchChange}
-                onFocus={() => searchQuery && setShowSuggestions(true)}
+                onFocus={() => searchQuery.trim().length > 0 && setShowSuggestions(true)}
               />
-              <button className="btn btn-primary rounded-pill px-4" type="submit">
-                <i className="bi bi-search"></i>
-              </button>
-            </form>
-
+              <button className="btn btn-primary" type="submit">Buscar</button>
+            </div>
+            
             {showSuggestions && suggestions.length > 0 && (
-              <div className="search-suggestions position-absolute w-100 bg-white rounded shadow-lg mt-2" style={{ zIndex: 1050, maxHeight: '400px', overflowY: 'auto' }}>
-                {suggestions.map((product) => (
-                  <Link
-                    key={product.id}
-                    to={`/buscar?q=${encodeURIComponent(product.title)}`}
-                    className="d-flex align-items-center p-3 text-decoration-none text-dark border-bottom search-suggestion-item"
-                    onClick={handleSuggestionClick}
-                    style={{ transition: 'background-color 0.2s' }}
-                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f8f9fa'}
-                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'white'}
-                  >
-                    <img 
-                      src={product.image} 
-                      alt={product.title} 
-                      className="rounded me-3"
-                      style={{ width: '60px', height: '60px', objectFit: 'cover' }}
-                    />
-                    <div className="flex-grow-1">
-                      <div className="fw-semibold mb-1">{product.title}</div>
-                      <div className="d-flex align-items-center gap-2">
-                        <span className="text-primary fw-bold">S/ {product.price}</span>
-                        <span className="badge bg-light text-dark">{product.category}</span>
-                      </div>
-                    </div>
-                    <i className="bi bi-arrow-right text-muted"></i>
-                  </Link>
-                ))}
-                <Link
-                  to={`/buscar?q=${encodeURIComponent(searchQuery)}`}
-                  className="d-block p-3 text-center text-primary text-decoration-none fw-semibold"
-                  onClick={handleSuggestionClick}
-                  style={{ transition: 'background-color 0.2s' }}
-                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f8f9fa'}
-                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'white'}
-                >
-                  Ver todos los resultados para "{searchQuery}" <i className="bi bi-arrow-right"></i>
-                </Link>
+              <div className="search-suggestions position-absolute w-100 bg-white shadow-sm rounded-bottom mt-1 overflow-hidden" style={{ zIndex: 1000, top: '100%' }}>
+                <div className="list-group list-group-flush">
+                  {suggestions.map(item => (
+                    <button
+                      key={item.id}
+                      className="list-group-item list-group-item-action d-flex align-items-center gap-2 px-3 py-2"
+                      onClick={() => {
+                        navigate(`/buscar?q=${encodeURIComponent(item.title)}`);
+                        setShowSuggestions(false);
+                        setSearchQuery(item.title);
+                      }}
+                    >
+                      <i className="bi bi-search text-muted small"></i>
+                      <span className="text-truncate">{item.title}</span>
+                      <span className="badge bg-light text-dark ms-auto">{item.category}</span>
+                    </button>
+                  ))}
+                </div>
               </div>
             )}
-          </div>
+          </form>
 
-          <ul className="navbar-nav align-items-lg-center gap-lg-2">
-            <li className="nav-item"><Link className="nav-link" to="/ofertas">Ofertas</Link></li>
-            <li className="nav-item"><Link className="nav-link" to="/vender">Vender</Link></li>
-            <li className="nav-item"><Link className="nav-link" to="/ayuda">Ayuda</Link></li>
-            <li className="nav-item"><Link className="nav-link" to="/login">Ingresa</Link></li>
-            <li className="nav-item"><Link className="nav-link" to="/register">Registrar</Link></li>
+          <ul className="navbar-nav align-items-lg-center gap-2 ms-auto">
+            <li className="nav-item">
+              <Link className="nav-link" to="/ofertas">Ofertas</Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/vender">Vender</Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/ayuda">Ayuda</Link>
+            </li>
+
+            {user ? (
+               <li className="nav-item dropdown">
+                <a className="nav-link dropdown-toggle d-flex align-items-center gap-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i className="bi bi-person-circle fs-5"></i>
+                  <span>{user.nombre}</span>
+                </a>
+                <ul className="dropdown-menu dropdown-menu-end">
+                  <li><Link className="dropdown-item" to="/profile">Mi Perfil</Link></li>
+                  <li><Link className="dropdown-item" to="/sell">Vender</Link></li>
+                  <li><hr className="dropdown-divider" /></li>
+                  <li><button className="dropdown-item text-danger" onClick={logoutUser}>Cerrar Sesión</button></li>
+                </ul>
+              </li>
+            ) : (
+              <>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/register">Crear cuenta</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/login">Ingresar</Link>
+                </li>
+              </>
+            )}
+            
             <li className="nav-item">
               <Link className="nav-link position-relative" to="/carrito" aria-label="Carrito de compras">
                 <i className="bi bi-cart3 fs-5"></i>
-                {getCartCount() > 0 && (
-                  <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                    {getCartCount()}
+                {getItemsCount() > 0 && (
+                  <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style={{ fontSize: '0.6rem' }}>
+                    {getItemsCount()}
+                    <span className="visually-hidden">productos en el carrito</span>
                   </span>
                 )}
               </Link>

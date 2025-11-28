@@ -1,23 +1,23 @@
 import { useCart } from '../context/CartContext';
 import { useState } from 'react';
 
-/**
- * Componente ProductCard
- * ----------------------
- * Representa la tarjeta individual de un producto.
- * 
- * Muestra:
- * - Imagen del producto.
- * - Título y precio (incluyendo descuento si existe).
- * - Etiquetas (badges) como "Nuevo" o "Oferta".
- * - Botón para agregar al carrito con feedback visual (animación).
- */
 const ProductCard = ({ id, image, title, price, discount, badge }) => {
   const { addToCart } = useCart();
   const [added, setAdded] = useState(false);
 
   const handleAddToCart = () => {
-    addToCart({ id, image, title, price, discount, badge });
+    const productToAdd = {
+        id,
+        titulo: title,
+        precio: price,
+        imagenPrincipal: image,
+        badge,
+        descripcion: '',
+        stock: 10,
+        estado: 'Nuevo'
+    };
+
+    addToCart(productToAdd);
     setAdded(true);
     setTimeout(() => setAdded(false), 2000);
   };
