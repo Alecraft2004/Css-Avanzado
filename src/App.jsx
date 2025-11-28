@@ -8,6 +8,7 @@ import CartPage from './pages/CartPage';
 import CategoryPage from './pages/CategoryPage';
 import SellPage from './pages/SellPage';
 import HelpPage from './pages/HelpPage';
+import ProfilePage from './pages/ProfilePage';
 
 // Páginas específicas de categoría (restauradas)
 import GamingPage from './pages/GamingPage';
@@ -25,6 +26,7 @@ function App() {
         <Route path="/carrito" element={<CartPage />} />
         <Route path="/vender" element={<SellPage />} />
         <Route path="/ayuda" element={<HelpPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
         
         {/* Rutas específicas para categorías principales (con diseño personalizado) */}
         <Route path="/categoria/gaming" element={<GamingPage />} />

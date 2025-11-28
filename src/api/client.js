@@ -30,4 +30,19 @@ export const createProducto = async (producto) => {
   return response.data;
 };
 
+export const getProductosByUsuario = async (vendedorId) => {
+  const response = await client.get(`/productos/usuario/${vendedorId}`);
+  return response.data;
+};
+
+export const updateProducto = async (id, data) => {
+  const response = await client.put(`/productos/${id}`, data);
+  return response.data;
+};
+
+export const deleteProducto = async (id) => {
+  const response = await client.delete(`/productos/${id}`);
+  return response.data;
+};
+
 export default client;
