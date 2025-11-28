@@ -158,6 +158,63 @@ app.get('/api/setup', async (req, res) => {
   }
 });
 
+// ---------- RUTA: OBTENER PRODUCTOS POR USUARIO ----------
+app.get('/api/productos/usuario/:vendedorId', async (req, res) => {
+  try {
+    const { vendedorId } = req.params;
+    const result = await pool.query(
+      `SELECT *, imagen_principal as "imagenPrincipal" FROM productos WHERE vendedor_id = $1 ORDER BY id DESC`,
+      [vendedorId]
+    );
+    res.json(result.rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Error al obtener productos del usuario', error: err.message });
+  }
+});
+
+// ---------- RUTA: ACTUALIZAR PRODUCTO ----------
+app.put('/api/productos/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { titulo, descripcion, precio, precioOriginal, stock, estado, imagenPrincipal } = req.body;
+
+    const result = await pool.query(
+      `UPDATE productos
+       SET titulo = $1, descripcion = $2, precio = $3, precio_original = $4, stock = $5, estado = $6, imagen_principal = $7
+       WHERE id = $8
+       RETURNING *`,
+      [titulo, descripcion, precio, precioOriginal, stock, estado, imagenPrincipal, id]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ message: 'Producto no encontrado' });
+    }
+
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Error al actualizar producto', error: err.message });
+  }
+});
+
+// ---------- RUTA: ELIMINAR PRODUCTO ----------
+app.delete('/api/productos/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await pool.query('DELETE FROM productos WHERE id = $1 RETURNING id', [id]);
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ message: 'Producto no encontrado' });
+    }
+
+    res.json({ message: 'Producto eliminado correctamente' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Error al eliminar producto', error: err.message });
+  }
+});
+
 const port = process.env.PORT || 4000;
 app.listen(port, () => {
   console.log(`API escuchando en http://localhost:${port}`);
