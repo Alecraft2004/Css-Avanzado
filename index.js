@@ -75,9 +75,18 @@ app.post('/api/usuarios/login', async (req, res) => {
 // ---------- RUTA: LISTAR PRODUCTOS ----------
 app.get('/api/productos', async (req, res) => {
   try {
-    const result = await pool.query(
-      `SELECT *, imagen_principal as "imagenPrincipal" FROM productos ORDER BY id DESC`
-    );
+    const { categoria } = req.query;
+    let queryText = `SELECT p.*, p.imagen_principal as "imagenPrincipal" FROM productos p`;
+    const queryParams = [];
+
+    if (categoria) {
+      queryText += ` JOIN categorias c ON p.categoria_id = c.id WHERE c.slug = $1`;
+      queryParams.push(categoria);
+    }
+
+    queryText += ` ORDER BY p.id DESC`;
+
+    const result = await pool.query(queryText, queryParams);
     res.json(result.rows);
   } catch (err) {
     console.error(err);
@@ -145,13 +154,33 @@ app.get('/api/setup', async (req, res) => {
       ON CONFLICT (id) DO NOTHING
     `);
 
-    // 2. Asegurar que existe la columna imagen_principal
+    // 2. Crear tabla subcategorias si no existe
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS subcategorias (
+        id SERIAL PRIMARY KEY,
+        categoria_id INTEGER REFERENCES categorias(id),
+        nombre VARCHAR(100) NOT NULL
+      )
+    `);
+
+    // 3. Insertar subcategorías (solo si está vacía para evitar duplicados simples)
+    const subCount = await pool.query('SELECT count(*) FROM subcategorias');
+    if (parseInt(subCount.rows[0].count) === 0) {
+       await pool.query(`INSERT INTO subcategorias (categoria_id, nombre) VALUES 
+        (1, 'PC Gaming'), (1, 'Consolas'), (1, 'Accesorios'), (1, 'Periféricos'), (1, 'Sillas'),
+        (2, 'Laptops'), (2, 'Smartphones'), (2, 'Tablets'), (2, 'Audio'), (2, 'Cámaras'),
+        (3, 'Despensa'), (3, 'Bebidas'), (3, 'Limpieza'), (3, 'Cuidado Personal'), (3, 'Mascotas'),
+        (4, 'Ficción'), (4, 'No Ficción'), (4, 'Infantil'), (4, 'Educación'), (4, 'Comics')
+      `);
+    }
+
+    // 4. Asegurar que existe la columna imagen_principal
     await pool.query(`
       ALTER TABLE productos 
       ADD COLUMN IF NOT EXISTS imagen_principal TEXT
     `);
 
-    res.send('Setup completado: Categorías creadas y columna de imagen asegurada.');
+    res.send('Setup completado: Categorías y Subcategorías creadas.');
   } catch (err) {
     console.error(err);
     res.status(500).send('Error en setup: ' + err.message);
@@ -177,14 +206,14 @@ app.get('/api/productos/usuario/:vendedorId', async (req, res) => {
 app.put('/api/productos/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const { titulo, descripcion, precio, precioOriginal, stock, estado, imagenPrincipal } = req.body;
+    const { titulo, descripcion, precio, precioOriginal, stock, estado, imagenPrincipal, categoriaId, subcategoriaId } = req.body;
 
     const result = await pool.query(
       `UPDATE productos
-       SET titulo = $1, descripcion = $2, precio = $3, precio_original = $4, stock = $5, estado = $6, imagen_principal = $7
-       WHERE id = $8
+       SET titulo = $1, descripcion = $2, precio = $3, precio_original = $4, stock = $5, estado = $6, imagen_principal = $7, categoria_id = $8, subcategoria_id = $9
+       WHERE id = $10
        RETURNING *`,
-      [titulo, descripcion, precio, precioOriginal, stock, estado, imagenPrincipal, id]
+      [titulo, descripcion, precio, precioOriginal, stock, estado, imagenPrincipal, categoriaId, subcategoriaId, id]
     );
 
     if (result.rows.length === 0) {
