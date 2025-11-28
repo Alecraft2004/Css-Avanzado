@@ -5,6 +5,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ProductCard from '../components/ProductCard';
 import { getProductosByCategoria } from '../api/client';
+import { getSubcategoryIdByName } from '../utils/categories';
 
 const CategoryPage = ({ customSlug, customCategoryInfo }) => {
   const { slug: paramSlug } = useParams();
@@ -47,7 +48,16 @@ const CategoryPage = ({ customSlug, customCategoryInfo }) => {
   // Filtrado local por subcategoría (si existen subcategorías definidas)
   const filteredProducts = selectedSubcategory === 'Todos'
     ? products
-    : products.filter(product => product.subcategory === selectedSubcategory || product.subcategoria === selectedSubcategory);
+    : products.filter(product => {
+        // 1. Coincidencia directa por nombre (si el backend lo devuelve)
+        if (product.subcategoria === selectedSubcategory || product.subcategory === selectedSubcategory) return true;
+        
+        // 2. Coincidencia por ID
+        const targetId = getSubcategoryIdByName(selectedSubcategory);
+        const prodSubId = product.subcategoriaId || product.subcategoria_id;
+        
+        return targetId && prodSubId && parseInt(prodSubId) === parseInt(targetId);
+    });
 
   return (
     <>

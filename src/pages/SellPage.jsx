@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { createProducto } from '../api/client';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { subcategoriasMap } from '../utils/categories';
 
 /**
  * Página de Vender (SellPage)
@@ -18,6 +19,7 @@ const SellPage = () => {
   const [formData, setFormData] = useState({
     titulo: '',
     categoriaId: '',
+    subcategoriaId: '',
     precio: '',
     descripcion: '',
     imagenPrincipal: '',
@@ -25,12 +27,26 @@ const SellPage = () => {
     estado: 'Nuevo'
   });
 
+  // Mapeo de subcategorías importado de utils/categories.js
+
+  const [availableSubcategories, setAvailableSubcategories] = useState([]);
+
   const handleChange = (e) => {
     const { id, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [id]: value
-    }));
+    
+    if (id === 'categoriaId') {
+        setAvailableSubcategories(subcategoriasMap[value] || []);
+        setFormData(prev => ({
+            ...prev,
+            categoriaId: value,
+            subcategoriaId: '' // Reset subcategoría al cambiar categoría
+        }));
+    } else {
+        setFormData(prev => ({
+            ...prev,
+            [id]: value
+        }));
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -49,7 +65,7 @@ const SellPage = () => {
         precio: parseFloat(formData.precio),
         stock: parseInt(formData.stock),
         categoriaId: parseInt(formData.categoriaId) || 1,
-        subcategoriaId: null, // Opcional por ahora
+        subcategoriaId: formData.subcategoriaId ? parseInt(formData.subcategoriaId) : null,
         precioOriginal: null,
         badge: 'NUEVO'
       });
@@ -87,7 +103,7 @@ const SellPage = () => {
                     <div className="row mb-4">
                       <div className="col-md-6">
                         <label htmlFor="categoriaId" className="form-label fw-bold">Categoría</label>
-                        <select className="form-select form-select-lg" id="categoriaId" value={formData.categoriaId} onChange={handleChange}>
+                        <select className="form-select form-select-lg" id="categoriaId" value={formData.categoriaId} onChange={handleChange} required>
                           <option value="">Seleccionar...</option>
                           <option value="1">Gaming</option>
                           <option value="2">Tecnología</option>
@@ -97,9 +113,25 @@ const SellPage = () => {
                         </select>
                       </div>
                       <div className="col-md-6">
+                        <label htmlFor="subcategoriaId" className="form-label fw-bold">Subcategoría</label>
+                        <select 
+                            className="form-select form-select-lg" 
+                            id="subcategoriaId" 
+                            value={formData.subcategoriaId} 
+                            onChange={handleChange}
+                            disabled={!formData.categoriaId || availableSubcategories.length === 0}
+                        >
+                          <option value="">Seleccionar...</option>
+                          {availableSubcategories.map(sub => (
+                              <option key={sub.id} value={sub.id}>{sub.nombre}</option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
+
+                    <div className="mb-4">
                         <label htmlFor="precio" className="form-label fw-bold">Precio (S/)</label>
                         <input type="number" className="form-control form-control-lg" id="precio" placeholder="0.00" value={formData.precio} onChange={handleChange} required />
-                      </div>
                     </div>
 
                     <div className="mb-4">

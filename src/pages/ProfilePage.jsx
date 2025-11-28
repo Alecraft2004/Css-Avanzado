@@ -5,6 +5,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import TopBar from '../components/TopBar';
 import { useNavigate } from 'react-router-dom';
+import { subcategoriasMap } from '../utils/categories';
 
 const ProfilePage = () => {
   const { user } = useAuth();
@@ -12,6 +13,9 @@ const ProfilePage = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [editingProduct, setEditingProduct] = useState(null);
+  const [availableSubcategories, setAvailableSubcategories] = useState([]);
+
+  // Mapeo de subcategorías importado de utils/categories.js
 
   const loadProducts = async () => {
     if (!user) return;
@@ -47,13 +51,31 @@ const ProfilePage = () => {
   };
 
   const handleEdit = (product) => {
-    setEditingProduct({ ...product });
+    const categoriaId = product.categoriaId || product.categoria_id;
+    const subcategoriaId = product.subcategoriaId || product.subcategoria_id;
+    
+    setEditingProduct({ 
+        ...product,
+        categoriaId,
+        subcategoriaId
+    });
+
+    if (categoriaId) {
+        setAvailableSubcategories(subcategoriasMap[categoriaId] || []);
+    } else {
+        setAvailableSubcategories([]);
+    }
   };
 
   const handleSaveEdit = async (e) => {
     e.preventDefault();
     try {
-      await updateProducto(editingProduct.id, editingProduct);
+      await updateProducto(editingProduct.id, {
+          ...editingProduct,
+          categoriaId: editingProduct.categoriaId,
+          subcategoriaId: editingProduct.subcategoriaId,
+          usuarioId: user.id
+      });
       setEditingProduct(null);
       loadProducts();
       alert('Producto actualizado correctamente');
@@ -175,6 +197,52 @@ const ProfilePage = () => {
                     <div className="mb-3">
                       <label className="form-label fw-bold">Título</label>
                       <input type="text" className="form-control" value={editingProduct.titulo} onChange={e => setEditingProduct({...editingProduct, titulo: e.target.value})} required />
+                    </div>
+                    
+                    <div className="row">
+                        <div className="col-6 mb-3">
+                            <label className="form-label fw-bold">Categoría</label>
+                            <select 
+                                className="form-select" 
+                                value={editingProduct.categoriaId ? String(editingProduct.categoriaId) : ''} 
+                                onChange={e => {
+                                    const newCatId = parseInt(e.target.value);
+                                    setEditingProduct({
+                                        ...editingProduct, 
+                                        categoriaId: newCatId,
+                                        subcategoriaId: '' 
+                                    });
+                                    setAvailableSubcategories(subcategoriasMap[newCatId] || []);
+                                }}
+                                required
+                            >
+                                <option value="">Seleccionar Categoría</option>
+                                <option value="1">Gaming</option>
+                                <option value="2">Tecnología</option>
+                                <option value="3">Supermercado</option>
+                                <option value="4">Libros</option>
+                            </select>
+                        </div>
+                        <div className="col-6 mb-3">
+                            <label className="form-label fw-bold">Subcategoría</label>
+                            <select 
+                                className="form-select" 
+                                value={editingProduct.subcategoriaId ? String(editingProduct.subcategoriaId) : ''} 
+                                onChange={e => {
+                                    const val = e.target.value;
+                                    setEditingProduct({
+                                        ...editingProduct, 
+                                        subcategoriaId: val ? parseInt(val) : ''
+                                    });
+                                }}
+                                disabled={!editingProduct.categoriaId}
+                            >
+                                <option value="">Seleccionar Subcategoría</option>
+                                {availableSubcategories.map(sub => (
+                                    <option key={sub.id} value={sub.id}>{sub.nombre}</option>
+                                ))}
+                            </select>
+                        </div>
                     </div>
                     <div className="row">
                         <div className="col-6 mb-3">
