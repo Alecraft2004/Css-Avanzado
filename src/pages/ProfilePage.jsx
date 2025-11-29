@@ -86,25 +86,69 @@ const ProfilePage = () => {
   };
 
   const handleOffer = (product) => {
-     const newPrice = prompt(`El precio actual es S/ ${product.precio}. Ingresa el nuevo precio de oferta:`);
-     if (newPrice && !isNaN(newPrice) && parseFloat(newPrice) < parseFloat(product.precio)) {
-         const updatedProduct = {
-             ...product,
-             precioOriginal: product.precio, // Guardamos el precio anterior como original
-             precio: parseFloat(newPrice),
-             badge: 'OFERTA'
-         };
-         // Llamar a update
-         updateProducto(product.id, updatedProduct).then(() => {
-             loadProducts();
-             alert('¡Producto puesto en oferta!');
-         }).catch(error => {
-             console.error(error);
-             alert('Error al poner en oferta');
-         });
-     } else if (newPrice) {
-         alert('El precio de oferta debe ser menor al precio actual.');
+     // Si ya tiene precio original, lo mantenemos, si no, el precio actual se convierte en el original
+     const originalPrice = product.precio_original || product.precio;
+     
+     const newPrice = prompt(`El precio original es S/ ${originalPrice}. Ingresa el nuevo precio de oferta:`);
+     
+     if (newPrice && !isNaN(newPrice)) {
+         const newPriceFloat = parseFloat(newPrice);
+         
+         if (newPriceFloat < parseFloat(originalPrice)) {
+             // Convertir a camelCase para el backend
+             const payload = {
+                 id: product.id,
+                 titulo: product.titulo,
+                 descripcion: product.descripcion,
+                 precio: newPriceFloat,
+                 precioOriginal: originalPrice,
+                 badge: 'OFERTA',
+                 stock: product.stock,
+                 estado: product.estado,
+                 imagenPrincipal: product.imagenPrincipal || product.imagen_principal,
+                 categoriaId: product.categoria_id,
+                 subcategoriaId: product.subcategoria_id,
+                 usuarioId: user.id
+             };
+             
+             updateProducto(product.id, payload).then(() => {
+                 loadProducts();
+                 alert('¡Producto puesto en oferta!');
+             }).catch(error => {
+                 console.error(error);
+                 alert('Error al poner en oferta');
+             });
+         } else {
+             alert('El precio de oferta debe ser menor al precio original.');
+         }
      }
+  };
+
+  const handleResetPrice = async (product) => {
+    if (window.confirm(`¿Deseas restablecer el precio a S/ ${product.precio_original}?`)) {
+        try {
+            const payload = {
+                id: product.id,
+                titulo: product.titulo,
+                descripcion: product.descripcion,
+                precio: product.precio_original,
+                precioOriginal: null,
+                badge: '',
+                stock: product.stock,
+                estado: product.estado,
+                imagenPrincipal: product.imagenPrincipal || product.imagen_principal,
+                categoriaId: product.categoria_id,
+                subcategoriaId: product.subcategoria_id,
+                usuarioId: user.id
+            };
+            await updateProducto(product.id, payload);
+            loadProducts();
+            alert('Precio restablecido correctamente');
+        } catch (error) {
+            console.error('Error al restablecer precio:', error);
+            alert('Error al restablecer el precio');
+        }
+    }
   };
 
   if (!user) return null;
@@ -155,8 +199,8 @@ const ProfilePage = () => {
                     <div className="d-flex justify-content-between align-items-center mb-3">
                         <div>
                             <span className="fw-bold text-primary fs-5">S/ {product.precio}</span>
-                            {product.precioOriginal && (
-                                <div className="text-muted text-decoration-line-through small">S/ {product.precioOriginal}</div>
+                            {product.precio_original && (
+                                <div className="text-muted text-decoration-line-through small">S/ {product.precio_original}</div>
                             )}
                         </div>
                         <span className={`badge ${product.stock > 0 ? 'bg-success' : 'bg-secondary'}`}>
@@ -173,8 +217,13 @@ const ProfilePage = () => {
                             </button>
                         </div>
                         <button className="btn btn-warning text-dark fw-medium" onClick={() => handleOffer(product)}>
-                            <i className="bi bi-tag-fill me-1"></i> Poner en Oferta
+                            <i className="bi bi-tag-fill me-1"></i> {product.precio_original ? 'Modificar Oferta' : 'Poner en Oferta'}
                         </button>
+                        {product.precio_original && (
+                            <button className="btn btn-secondary" onClick={() => handleResetPrice(product)}>
+                                <i className="bi bi-arrow-counterclockwise me-1"></i> Restablecer
+                            </button>
+                        )}
                     </div>
                   </div>
                 </div>

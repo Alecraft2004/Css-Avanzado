@@ -10,6 +10,7 @@ const ProductCard = ({ id, image, title, price, discount, badge }) => {
         id,
         titulo: title,
         precio: price,
+        precio_original: discount,
         imagenPrincipal: image,
         badge,
         descripcion: '',

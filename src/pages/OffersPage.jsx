@@ -14,11 +14,11 @@ const OffersPage = () => {
     const fetchOffers = async () => {
       try {
         const allProducts = await getProductos();
-        // Filtrar productos que tengan precioOriginal (indicando oferta)
-        // y que precioOriginal sea mayor que precio actual
+        // Filtrar productos que tengan precio_original (indicando oferta)
+        // y que precio_original sea mayor que precio actual
         const offers = allProducts.filter(p => 
-          p.precioOriginal && 
-          parseFloat(p.precioOriginal) > parseFloat(p.precio)
+          p.precio_original && 
+          parseFloat(p.precio_original) > parseFloat(p.precio)
         );
         setProducts(offers);
       } catch (error) {
@@ -77,7 +77,7 @@ const OffersPage = () => {
                       image={product.imagenPrincipal}
                       title={product.titulo}
                       price={product.precio}
-                      discount={product.precioOriginal}
+                      discount={product.precio_original}
                       badge={product.badge || 'OFERTA'}
                     />
                   </div>

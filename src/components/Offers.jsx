@@ -32,7 +32,7 @@ const Offers = ({ products = [] }) => {
                 image={product.imagenPrincipal || product.image}
                 title={product.titulo || product.title}
                 price={product.precio || product.price}
-                discount={product.precioOriginal || product.discount}
+                discount={product.precio_original || product.discount}
                 badge={product.badge || 'OFERTA'}
               />
             </div>

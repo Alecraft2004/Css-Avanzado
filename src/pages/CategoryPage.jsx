@@ -116,7 +116,7 @@ const CategoryPage = ({ customSlug, customCategoryInfo }) => {
                       image={product.imagenPrincipal}
                       title={product.titulo}
                       price={product.precio}
-                      discount={product.precioOriginal}
+                      discount={product.precio_original}
                       badge={product.badge}
                     />
                   </div>

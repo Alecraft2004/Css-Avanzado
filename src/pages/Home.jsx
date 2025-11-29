@@ -4,7 +4,6 @@ import Hero from '../components/Hero';
 import PromoCategories from '../components/PromoCategories';
 import Footer from '../components/Footer';
 import BestSellers from '../components/BestSellers';
-import Offers from '../components/Offers';
 import { useEffect, useState } from 'react';
 import { getProductos } from '../api/client';
 
@@ -41,9 +40,6 @@ const Home = () => {
   // Filtramos productos para BestSellers (simulamos que son los primeros 8)
   const bestSellers = products.slice(0, 8);
 
-  // Filtramos productos para Offers (los que tienen precioOriginal)
-  const offers = products.filter(p => p.precioOriginal && parseFloat(p.precioOriginal) > parseFloat(p.precio)).slice(0, 8);
-
   return (
     <>
       <TopBar />
@@ -56,7 +52,6 @@ const Home = () => {
         <>
           <BestSellers products={bestSellers} />
           <PromoCategories />
-          <Offers products={offers} />
         </>
       )}
 

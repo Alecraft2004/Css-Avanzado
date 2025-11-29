@@ -1,8 +1,10 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import TopBar from '../components/TopBar';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
+import { useState } from 'react';
 
 /**
  * Página del Carrito (CartPage)
@@ -18,11 +20,33 @@ import { useCart } from '../context/CartContext';
  */
 const CartPage = () => {
   const { cart, removeFromCart, updateQuantity, getCartTotal, clearCart } = useCart();
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const handleQuantityChange = (productId, newQuantity) => {
     if (newQuantity >= 1) {
       updateQuantity(productId, newQuantity);
     }
+  };
+
+  const handleCheckout = () => {
+    setIsProcessing(true);
+    
+    // Datos de la orden para la boleta
+    const orderData = {
+        items: [...cart],
+        total: getCartTotal(),
+        date: new Date().toISOString(),
+        user: user || { nombre: 'Invitado', email: 'invitado@example.com' } // Fallback si no hay usuario logueado
+    };
+
+    // Simular proceso de pago
+    setTimeout(() => {
+      setIsProcessing(false);
+      clearCart();
+      navigate('/checkout-success', { state: { orderData } });
+    }, 2000);
   };
 
   if (cart.length === 0) {
@@ -99,9 +123,9 @@ const CartPage = () => {
                         
                         <div className="col-md-4 col-9">
                           <h6 className="mb-1">{item.titulo}</h6>
-                          {item.precioOriginal && (
+                          {item.precio_original && (
                             <small className="text-muted text-decoration-line-through">
-                              S/ {item.precioOriginal}
+                              S/ {item.precio_original}
                             </small>
                           )}
                           {item.badge && (
@@ -182,9 +206,22 @@ const CartPage = () => {
                     <span className="fs-4 fw-bold text-primary">S/ {getCartTotal().toFixed(2)}</span>
                   </div>
 
-                  <button className="btn btn-primary w-100 rounded-pill py-3 mb-3">
-                    <i className="bi bi-credit-card me-2"></i>
-                    Proceder al pago
+                  <button 
+                    className="btn btn-primary w-100 rounded-pill py-3 mb-3"
+                    onClick={handleCheckout}
+                    disabled={isProcessing}
+                  >
+                    {isProcessing ? (
+                      <>
+                        <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                        Procesando...
+                      </>
+                    ) : (
+                      <>
+                        <i className="bi bi-credit-card me-2"></i>
+                        Proceder al pago
+                      </>
+                    )}
                   </button>
 
                   <div className="text-center text-muted small">

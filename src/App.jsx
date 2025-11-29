@@ -9,6 +9,7 @@ import CategoryPage from './pages/CategoryPage';
 import SellPage from './pages/SellPage';
 import HelpPage from './pages/HelpPage';
 import ProfilePage from './pages/ProfilePage';
+import CheckoutSuccessPage from './pages/CheckoutSuccessPage';
 
 // Páginas específicas de categoría (restauradas)
 import GamingPage from './pages/GamingPage';
@@ -27,6 +28,7 @@ function App() {
         <Route path="/vender" element={<SellPage />} />
         <Route path="/ayuda" element={<HelpPage />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/checkout-success" element={<CheckoutSuccessPage />} />
         
         {/* Rutas específicas para categorías principales (con diseño personalizado) */}
         <Route path="/categoria/gaming" element={<GamingPage />} />
