@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 /**
  * Componente Hero
  * ---------------
@@ -32,9 +34,9 @@ const Hero = () => {
                   Descubre la última generación de gadgets con envíos ultrarrápidos.
                 </p>
                 <div className="d-flex gap-3 justify-content-center">
-                  <a href="#mas-vendidos" className="btn btn-light btn-lg rounded-pill px-5 fw-bold shadow-lg transform-hover">
+                  <Link to="/categoria/tecnologia" className="btn btn-light btn-lg rounded-pill px-5 fw-bold shadow-lg transform-hover">
                     Ver Colección
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -55,9 +57,9 @@ const Hero = () => {
                 <p className="hero-subtitle lead mb-4 px-md-5 opacity-75">
                   Los best-sellers del momento con descuentos exclusivos.
                 </p>
-                <a href="#mas-vendidos" className="btn btn-light btn-lg rounded-pill px-5 fw-bold shadow-lg transform-hover">
+                <Link to="/categoria/libros" className="btn btn-light btn-lg rounded-pill px-5 fw-bold shadow-lg transform-hover">
                   Explorar Librería
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -77,9 +79,9 @@ const Hero = () => {
                 <p className="hero-subtitle lead mb-4 px-md-5 opacity-75">
                   Auriculares de alta fidelidad para una experiencia inmersiva.
                 </p>
-                <a href="#mas-vendidos" className="btn btn-light btn-lg rounded-pill px-5 fw-bold shadow-lg transform-hover">
+                <Link to="/categoria/tecnologia" className="btn btn-light btn-lg rounded-pill px-5 fw-bold shadow-lg transform-hover">
                   Comprar Ahora
-                </a>
+                </Link>
               </div>
             </div>
           </div>
